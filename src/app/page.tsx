@@ -1,42 +1,42 @@
 const stats = [
-  { label: "今月の売上", value: "¥1,284,000", delta: "+12.4%" },
-  { label: "予約件数", value: "48", delta: "+8" },
-  { label: "稼働率", value: "82%", delta: "+5.1%" },
-  { label: "未返信レビュー", value: "6", delta: "AI候補あり" },
+  { label: "Monthly revenue", value: "$12,840", delta: "+12.4%" },
+  { label: "Reservations", value: "48", delta: "+8" },
+  { label: "Occupancy rate", value: "82%", delta: "+5.1%" },
+  { label: "Pending reviews", value: "6", delta: "AI drafts ready" },
 ];
 
 const reservations = [
   {
     guest: "Mika Tanaka",
-    property: "浅草リバーサイド 301",
+    property: "Asakusa Riverside 301",
     dates: "6/12 - 6/15",
-    amount: "¥86,400",
-    status: "確定",
+    amount: "$864",
+    status: "Confirmed",
   },
   {
     guest: "Alex Kim",
-    property: "箱根マウンテンロッジ",
+    property: "Hakone Mountain Lodge",
     dates: "6/18 - 6/22",
-    amount: "¥142,000",
-    status: "決済待ち",
+    amount: "$1,420",
+    status: "Payment due",
   },
   {
     guest: "Sara Ito",
-    property: "京都町家ステイ",
+    property: "Kyoto Machiya Stay",
     dates: "6/26 - 6/28",
-    amount: "¥74,800",
-    status: "確認中",
+    amount: "$748",
+    status: "Reviewing",
   },
 ];
 
 const calendarDays = [
-  { day: "月", date: "10", occupancy: "3/4" },
-  { day: "火", date: "11", occupancy: "4/4" },
-  { day: "水", date: "12", occupancy: "4/4" },
-  { day: "木", date: "13", occupancy: "2/4" },
-  { day: "金", date: "14", occupancy: "3/4" },
-  { day: "土", date: "15", occupancy: "4/4" },
-  { day: "日", date: "16", occupancy: "1/4" },
+  { day: "Mon", date: "10", occupancy: "3/4" },
+  { day: "Tue", date: "11", occupancy: "4/4" },
+  { day: "Wed", date: "12", occupancy: "4/4" },
+  { day: "Thu", date: "13", occupancy: "2/4" },
+  { day: "Fri", date: "14", occupancy: "3/4" },
+  { day: "Sat", date: "15", occupancy: "4/4" },
+  { day: "Sun", date: "16", occupancy: "1/4" },
 ];
 
 const roadmap = [
@@ -55,7 +55,7 @@ export default function Home() {
           <div className="flex items-center justify-between lg:block">
             <div>
               <p className="text-sm font-semibold text-[#557064]">HostPilot</p>
-              <h1 className="mt-1 text-xl font-semibold">民泊ホスト管理</h1>
+              <h1 className="mt-1 text-xl font-semibold">Vacation Rental Ops</h1>
             </div>
             <span className="rounded-full bg-[#dfeee7] px-3 py-1 text-xs font-medium text-[#1d6544]">
               Demo
@@ -63,7 +63,7 @@ export default function Home() {
           </div>
 
           <nav className="mt-6 grid grid-cols-2 gap-2 text-sm lg:grid-cols-1">
-            {["ダッシュボード", "予約管理", "売上管理", "カレンダー", "AIレビュー", "決済"].map(
+            {["Dashboard", "Reservations", "Revenue", "Calendar", "AI Reviews", "Payments"].map(
               (item) => (
                 <a
                   className="rounded-md px-3 py-2 font-medium text-[#43534b] hover:bg-[#eef2ea] hover:text-[#16201b]"
@@ -81,14 +81,14 @@ export default function Home() {
           <header className="flex flex-col gap-4 border-b border-[#dfe4dc] pb-6 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-sm font-medium text-[#557064]">
-                2026年6月の運営状況
+                June 2026 operations
               </p>
               <h2 className="mt-2 text-3xl font-semibold tracking-normal">
-                予約、売上、返信をひとつの画面で管理
+                Manage bookings, revenue, and replies in one workspace
               </h2>
             </div>
             <button className="h-10 rounded-md bg-[#1f6f4a] px-4 text-sm font-semibold text-white shadow-sm hover:bg-[#18593b]">
-              新規予約を追加
+              Add reservation
             </button>
           </header>
 
@@ -112,20 +112,20 @@ export default function Home() {
           <div className="mt-6 grid gap-6 xl:grid-cols-[1.4fr_0.9fr]">
             <section className="rounded-lg border border-[#dfe4dc] bg-white shadow-sm">
               <div className="flex items-center justify-between border-b border-[#edf0ea] px-5 py-4">
-                <h3 className="font-semibold">直近の予約</h3>
+                <h3 className="font-semibold">Recent reservations</h3>
                 <a className="text-sm font-semibold text-[#1f6f4a]" href="#">
-                  すべて見る
+                  View all
                 </a>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[640px] border-collapse text-left text-sm">
                   <thead className="bg-[#f6f7f4] text-[#66756d]">
                     <tr>
-                      <th className="px-5 py-3 font-medium">ゲスト</th>
-                      <th className="px-5 py-3 font-medium">物件</th>
-                      <th className="px-5 py-3 font-medium">日程</th>
-                      <th className="px-5 py-3 font-medium">金額</th>
-                      <th className="px-5 py-3 font-medium">状態</th>
+                      <th className="px-5 py-3 font-medium">Guest</th>
+                      <th className="px-5 py-3 font-medium">Property</th>
+                      <th className="px-5 py-3 font-medium">Dates</th>
+                      <th className="px-5 py-3 font-medium">Amount</th>
+                      <th className="px-5 py-3 font-medium">Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -160,7 +160,7 @@ export default function Home() {
 
             <section className="rounded-lg border border-[#dfe4dc] bg-white p-5 shadow-sm">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold">週間カレンダー</h3>
+                <h3 className="font-semibold">Weekly calendar</h3>
                 <span className="text-sm font-medium text-[#66756d]">6/10 - 6/16</span>
               </div>
               <div className="mt-4 grid grid-cols-7 gap-2">
@@ -182,19 +182,19 @@ export default function Home() {
 
           <div className="mt-6 grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
             <section className="rounded-lg border border-[#dfe4dc] bg-white p-5 shadow-sm">
-              <h3 className="font-semibold">AIレビュー返信</h3>
+              <h3 className="font-semibold">AI review reply</h3>
               <div className="mt-4 rounded-md border border-[#edf0ea] bg-[#fbfcf8] p-4">
                 <p className="text-sm leading-6 text-[#43534b]">
-                  「部屋が清潔で駅から近く、チェックインもスムーズでした。」
+                  &ldquo;The room was spotless, close to the station, and check-in was smooth.&rdquo;
                 </p>
                 <p className="mt-4 text-sm font-medium text-[#16201b]">
-                  ご宿泊ありがとうございました。清掃とアクセス面を評価いただけて嬉しいです。
+                  Thank you for staying with us. We are glad the cleanliness and location made your trip easier.
                 </p>
               </div>
             </section>
 
             <section className="rounded-lg border border-[#dfe4dc] bg-white p-5 shadow-sm">
-              <h3 className="font-semibold">開発ロードマップ</h3>
+              <h3 className="font-semibold">Development roadmap</h3>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {roadmap.map((item, index) => (
                   <div

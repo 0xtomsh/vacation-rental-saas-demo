@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HostPilot | 民泊ホスト管理SaaS",
-  description: "予約、売上、カレンダー、レビュー返信、決済を扱う民泊ホスト向けSaaSデモ",
+  title: "HostPilot | Vacation Rental Host SaaS",
+  description:
+    "A vacation rental host SaaS demo for reservations, revenue, calendars, review replies, and payments.",
 };
 
 export default function RootLayout({
@@ -24,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="ja"
+      lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
