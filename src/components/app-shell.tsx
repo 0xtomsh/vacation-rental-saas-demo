@@ -1,5 +1,11 @@
 import { Sidebar } from "@/components/sidebar";
 import { requireDemoUser } from "@/lib/auth";
+import {
+  Bot,
+  CalendarX2,
+  FileText,
+  Plus,
+} from "lucide-react";
 
 type AppShellProps = {
   activeHref: string;
@@ -8,6 +14,24 @@ type AppShellProps = {
   actionLabel?: string;
   children: React.ReactNode;
 };
+
+function renderActionIcon(actionLabel: string) {
+  const normalizedLabel = actionLabel.toLowerCase();
+
+  if (normalizedLabel.includes("draft")) {
+    return <Bot aria-hidden="true" size={16} strokeWidth={2.2} />;
+  }
+
+  if (normalizedLabel.includes("block")) {
+    return <CalendarX2 aria-hidden="true" size={16} strokeWidth={2.2} />;
+  }
+
+  if (normalizedLabel.includes("invoice")) {
+    return <FileText aria-hidden="true" size={16} strokeWidth={2.2} />;
+  }
+
+  return <Plus aria-hidden="true" size={16} strokeWidth={2.2} />;
+}
 
 export async function AppShell({
   activeHref,
@@ -34,7 +58,8 @@ export async function AppShell({
               </h2>
             </div>
             {actionLabel ? (
-              <button className="h-10 rounded-full bg-white px-4 text-sm font-semibold text-[#6d61d7] shadow-[0_12px_28px_rgba(108,97,215,0.12)] ring-1 ring-[#eceeff] hover:bg-[#fdfdff]">
+              <button className="flex h-10 items-center justify-center gap-2 rounded-full bg-white px-4 text-sm font-semibold text-[#6d61d7] shadow-[0_12px_28px_rgba(108,97,215,0.12)] ring-1 ring-[#eceeff] hover:bg-[#fdfdff]">
+                {renderActionIcon(actionLabel)}
                 {actionLabel}
               </button>
             ) : null}

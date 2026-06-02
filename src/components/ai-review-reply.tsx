@@ -1,6 +1,13 @@
 "use client";
 
 import { useActionState } from "react";
+import {
+  AlertCircle,
+  Bot,
+  MessageSquareText,
+  PenLine,
+  Sparkles,
+} from "lucide-react";
 
 import {
   generateReviewReply,
@@ -25,10 +32,16 @@ export function AiReviewReply() {
 
   return (
     <section className="rounded-2xl bg-white p-5 shadow-[0_18px_44px_rgba(111,93,184,0.08)] ring-1 ring-[#eef0fb]">
-      <h3 className="font-semibold text-[#202238]">AI review reply</h3>
+      <h3 className="flex items-center gap-2 font-semibold text-[#202238]">
+        <Bot aria-hidden="true" size={18} strokeWidth={2.2} />
+        AI review reply
+      </h3>
       <form action={action} className="mt-4 grid gap-4">
         <label className="grid gap-2 text-sm font-semibold text-[#74799b]">
-          Guest review
+          <span className="flex items-center gap-2">
+            <MessageSquareText aria-hidden="true" size={16} strokeWidth={2.2} />
+            Guest review
+          </span>
           <textarea
             className="min-h-28 resize-y rounded-xl border border-[#e7e9f6] bg-[#fbfcff] px-3 py-2 text-sm font-normal leading-6 text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20"
             defaultValue={reviewBody}
@@ -38,7 +51,8 @@ export function AiReviewReply() {
         </label>
 
         {state.message ? (
-          <p className="rounded-xl border border-[#ffd5de] bg-[#fff6f8] px-3 py-2 text-sm font-medium text-[#df5473]">
+          <p className="flex items-center gap-2 rounded-xl border border-[#ffd5de] bg-[#fff6f8] px-3 py-2 text-sm font-medium text-[#df5473]">
+            <AlertCircle aria-hidden="true" size={16} strokeWidth={2.2} />
             {state.message}
           </p>
         ) : null}
@@ -54,7 +68,10 @@ export function AiReviewReply() {
               Generating draft
             </>
           ) : (
-            "Generate draft"
+            <>
+              <Sparkles aria-hidden="true" size={16} strokeWidth={2.2} />
+              Generate draft
+            </>
           )}
         </button>
 
@@ -77,6 +94,10 @@ export function AiReviewReply() {
           </div>
         ) : state.draft ? (
           <div className="rounded-xl border border-[#e7e9f6] bg-[#fbfcff] p-4">
+            <p className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#8b91b5]">
+              <PenLine aria-hidden="true" size={14} strokeWidth={2.2} />
+              Draft preview
+            </p>
             <p className="text-sm leading-6 text-[#74799b]">
               &ldquo;{reviewBody}&rdquo;
             </p>

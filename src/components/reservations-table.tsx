@@ -1,4 +1,10 @@
 import { Fragment } from "react";
+import {
+  ArrowRight,
+  ClipboardList,
+  Save,
+  Trash2,
+} from "lucide-react";
 
 export type Reservation = {
   id?: string;
@@ -71,9 +77,13 @@ export function ReservationsTable({
   return (
     <section className="overflow-hidden rounded-2xl bg-white shadow-[0_18px_44px_rgba(111,93,184,0.08)] ring-1 ring-[#eef0fb]">
       <div className="flex items-center justify-between px-5 py-4">
-        <h3 className="font-semibold text-[#202238]">Recent reservations</h3>
-        <a className="text-sm font-semibold text-[#6d61d7]" href="#">
+        <h3 className="flex items-center gap-2 font-semibold text-[#202238]">
+          <ClipboardList aria-hidden="true" size={18} strokeWidth={2.2} />
+          Recent reservations
+        </h3>
+        <a className="flex items-center gap-1.5 text-sm font-semibold text-[#6d61d7]" href="#">
           View all
+          <ArrowRight aria-hidden="true" size={15} strokeWidth={2.2} />
         </a>
       </div>
       <div className="overflow-x-auto">
@@ -115,9 +125,10 @@ export function ReservationsTable({
                     <td className="px-4 py-4">
                       <form action={actions!.delete.bind(null, reservation.id)}>
                         <button
-                          className="h-9 rounded-full border border-[#ffd5de] bg-white px-3 text-xs font-semibold text-[#df5473] hover:bg-[#fff6f8]"
+                          className="flex h-9 items-center justify-center gap-1.5 rounded-full border border-[#ffd5de] bg-white px-3 text-xs font-semibold text-[#df5473] hover:bg-[#fff6f8]"
                           type="submit"
                         >
+                          <Trash2 aria-hidden="true" size={14} strokeWidth={2.2} />
                           Delete
                         </button>
                       </form>
@@ -237,9 +248,10 @@ export function ReservationsTable({
                           placeholder="Notes"
                         />
                         <button
-                          className="h-10 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9]"
+                          className="flex h-10 items-center justify-center gap-2 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9]"
                           type="submit"
                         >
+                          <Save aria-hidden="true" size={16} strokeWidth={2.2} />
                           Save
                         </button>
                       </form>

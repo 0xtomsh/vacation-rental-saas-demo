@@ -1,5 +1,6 @@
 import { AppShell } from "@/components/app-shell";
 import { StatsCards } from "@/components/stats-cards";
+import { CreditCard } from "lucide-react";
 
 const stats = [
   { label: "Gross volume", value: "$12,840", delta: "+12.4%" },
@@ -43,7 +44,10 @@ export default function PaymentsPage() {
       <StatsCards stats={stats} />
       <section className="mt-6 overflow-hidden rounded-2xl bg-white shadow-[0_18px_44px_rgba(111,93,184,0.08)] ring-1 ring-[#eef0fb]">
         <div className="px-5 py-4">
-          <h3 className="font-semibold text-[#202238]">Payment activity</h3>
+          <h3 className="flex items-center gap-2 font-semibold text-[#202238]">
+            <CreditCard aria-hidden="true" size={18} strokeWidth={2.2} />
+            Payment activity
+          </h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px] border-collapse text-left text-sm">

@@ -3,6 +3,7 @@ import type { Reservation } from "@/components/reservations-table";
 import { ReservationsTable } from "@/components/reservations-table";
 import { StatsCards } from "@/components/stats-cards";
 import { prisma } from "@/lib/prisma";
+import { CalendarPlus, Plus } from "lucide-react";
 
 import {
   createReservation,
@@ -126,7 +127,10 @@ export default async function ReservationsPage() {
     >
       <section className="mt-6 overflow-hidden rounded-2xl bg-white shadow-[0_18px_44px_rgba(111,93,184,0.08)] ring-1 ring-[#eef0fb]">
         <div className="px-5 py-4">
-          <h3 className="font-semibold text-[#202238]">Create reservation</h3>
+          <h3 className="flex items-center gap-2 font-semibold text-[#202238]">
+            <CalendarPlus aria-hidden="true" size={18} strokeWidth={2.2} />
+            Create reservation
+          </h3>
         </div>
         <form
           action={createReservation}
@@ -220,10 +224,11 @@ export default async function ReservationsPage() {
             placeholder="Notes"
           />
           <button
-            className="h-10 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9] disabled:cursor-not-allowed disabled:bg-[#b8edf2]"
+            className="flex h-10 items-center justify-center gap-2 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9] disabled:cursor-not-allowed disabled:bg-[#b8edf2]"
             disabled={guests.length === 0 || properties.length === 0}
             type="submit"
           >
+            <Plus aria-hidden="true" size={16} strokeWidth={2.2} />
             Create
           </button>
           {guests.length === 0 || properties.length === 0 ? (

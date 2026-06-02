@@ -1,11 +1,24 @@
 import { logout } from "@/app/login/actions";
+import {
+  CalendarDays,
+  CreditCard,
+  Gauge,
+  LogOut,
+  MessageSquareText,
+  ClipboardList,
+  type LucideIcon,
+} from "lucide-react";
 
-const navigationItems = [
-  { label: "Dashboard", href: "/dashboard", icon: "D" },
-  { label: "Reservations", href: "/reservations", icon: "R" },
-  { label: "Calendar", href: "/calendar", icon: "C" },
-  { label: "Reviews", href: "/reviews", icon: "V" },
-  { label: "Payments", href: "/payments", icon: "P" },
+const navigationItems: Array<{
+  label: string;
+  href: string;
+  icon: LucideIcon;
+}> = [
+  { label: "Dashboard", href: "/dashboard", icon: Gauge },
+  { label: "Reservations", href: "/reservations", icon: ClipboardList },
+  { label: "Calendar", href: "/calendar", icon: CalendarDays },
+  { label: "Reviews", href: "/reviews", icon: MessageSquareText },
+  { label: "Payments", href: "/payments", icon: CreditCard },
 ];
 
 type SidebarProps = {
@@ -38,6 +51,7 @@ export function Sidebar({ activeHref, userEmail }: SidebarProps) {
       <nav className="mt-7 grid grid-cols-2 gap-2 text-sm lg:grid-cols-1">
         {navigationItems.map((item) => {
           const isActive = item.href === activeHref;
+          const Icon = item.icon;
 
           return (
           <a
@@ -56,7 +70,7 @@ export function Sidebar({ activeHref, userEmail }: SidebarProps) {
                   : "bg-[#f4f6ff] text-[#9aa0bb]"
               }`}
             >
-              {item.icon}
+              <Icon aria-hidden="true" size={16} strokeWidth={2.2} />
             </span>
             {item.label}
           </a>
@@ -71,9 +85,10 @@ export function Sidebar({ activeHref, userEmail }: SidebarProps) {
           </p>
           <form action={logout} className="mt-3">
             <button
-              className="h-9 w-full rounded-full bg-white px-3 text-sm font-semibold text-[#8177dc] shadow-sm ring-1 ring-[#eceeff] hover:bg-[#fbfbff]"
+              className="flex h-9 w-full items-center justify-center gap-2 rounded-full bg-white px-3 text-sm font-semibold text-[#8177dc] shadow-sm ring-1 ring-[#eceeff] hover:bg-[#fbfbff]"
               type="submit"
             >
+              <LogOut aria-hidden="true" size={16} strokeWidth={2.2} />
               Sign out
             </button>
           </form>

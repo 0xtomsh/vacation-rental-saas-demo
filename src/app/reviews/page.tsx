@@ -1,6 +1,7 @@
 import { AiReviewReply } from "@/components/ai-review-reply";
 import { AppShell } from "@/components/app-shell";
 import { StatsCards } from "@/components/stats-cards";
+import { Star } from "lucide-react";
 
 const stats = [
   { label: "Average rating", value: "4.86", delta: "+0.08" },
@@ -43,7 +44,10 @@ export default function ReviewsPage() {
         <AiReviewReply />
         <section className="overflow-hidden rounded-2xl bg-white shadow-[0_18px_44px_rgba(111,93,184,0.08)] ring-1 ring-[#eef0fb]">
           <div className="px-5 py-4">
-            <h3 className="font-semibold text-[#202238]">Recent guest reviews</h3>
+            <h3 className="flex items-center gap-2 font-semibold text-[#202238]">
+              <Star aria-hidden="true" size={18} strokeWidth={2.2} />
+              Recent guest reviews
+            </h3>
           </div>
           <div className="divide-y divide-[#f0f2fb]">
             {reviews.map((review) => (
