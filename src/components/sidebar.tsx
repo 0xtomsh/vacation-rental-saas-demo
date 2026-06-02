@@ -32,11 +32,11 @@ export function Sidebar({ activeHref, userEmail }: SidebarProps) {
       <div className="flex items-center justify-between lg:block">
         <div className="flex items-center gap-3 lg:block">
           <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#52dce6] text-sm font-bold text-white shadow-[0_12px_22px_rgba(82,220,230,0.36)] lg:mb-3">
-            HP
+            THS
           </div>
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#38c7d1]">
-              HostPilot
+              Tom&apos;s Hosting Suite
             </p>
             <h1 className="mt-1 text-lg font-semibold text-[#202238]">
               Rental Ops

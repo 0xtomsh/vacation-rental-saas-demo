@@ -21,7 +21,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 This demo uses Supabase Auth and exposes one shared login on the login screen:
 
 - Email: `demo@example.com`
-- Password: `HostPilot2026!`
+- Password: `TomsHostingSuite2026!`
 
 Before publishing the demo, create exactly this user in Supabase Auth. If email
 confirmation is enabled for the project, either manually confirm the user in the
@@ -31,7 +31,7 @@ Configure the public credentials with:
 
 ```bash
 NEXT_PUBLIC_DEMO_LOGIN_EMAIL="demo@example.com"
-NEXT_PUBLIC_DEMO_LOGIN_PASSWORD="HostPilot2026!"
+NEXT_PUBLIC_DEMO_LOGIN_PASSWORD="TomsHostingSuite2026!"
 ```
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.

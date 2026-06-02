@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HostPilot | Vacation Rental Host SaaS",
+  title: "Tom's Hosting Suite | Vacation Rental Host SaaS",
   description:
     "A vacation rental host SaaS demo for reservations, revenue, calendars, review replies, and payments.",
 };
