@@ -50,7 +50,7 @@ function formatAmount(amount: { toString: () => string }, currency: string) {
 }
 
 function inputClassName() {
-  return "h-10 rounded-md border border-[#dfe4dc] bg-white px-3 text-sm text-[#16201b] outline-none focus:border-[#1f6f4a]";
+  return "h-10 rounded-xl border border-[#e7e9f6] bg-white px-3 text-sm text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20";
 }
 
 export default async function ReservationsPage() {
@@ -119,19 +119,20 @@ export default async function ReservationsPage() {
 
   return (
     <AppShell
+      activeHref="/reservations"
       actionLabel="New booking"
       eyebrow="Reservation pipeline"
       title="Track upcoming stays and guest requests"
     >
-      <section className="mt-6 rounded-lg border border-[#dfe4dc] bg-white shadow-sm">
-        <div className="border-b border-[#edf0ea] px-5 py-4">
-          <h3 className="font-semibold">Create reservation</h3>
+      <section className="mt-6 overflow-hidden rounded-2xl bg-white shadow-[0_18px_44px_rgba(111,93,184,0.08)] ring-1 ring-[#eef0fb]">
+        <div className="px-5 py-4">
+          <h3 className="font-semibold text-[#202238]">Create reservation</h3>
         </div>
         <form
           action={createReservation}
           className="grid gap-4 px-5 py-5 lg:grid-cols-[1fr_1fr_150px_150px_110px_140px_130px]"
         >
-          <label className="grid gap-1 text-xs font-semibold text-[#66756d]">
+          <label className="grid gap-1 text-xs font-semibold text-[#8b91b5]">
             Guest
             <select
               className={inputClassName()}
@@ -146,7 +147,7 @@ export default async function ReservationsPage() {
               ))}
             </select>
           </label>
-          <label className="grid gap-1 text-xs font-semibold text-[#66756d]">
+          <label className="grid gap-1 text-xs font-semibold text-[#8b91b5]">
             Property
             <select
               className={inputClassName()}
@@ -161,7 +162,7 @@ export default async function ReservationsPage() {
               ))}
             </select>
           </label>
-          <label className="grid gap-1 text-xs font-semibold text-[#66756d]">
+          <label className="grid gap-1 text-xs font-semibold text-[#8b91b5]">
             Check in
             <input
               className={inputClassName()}
@@ -171,7 +172,7 @@ export default async function ReservationsPage() {
               type="date"
             />
           </label>
-          <label className="grid gap-1 text-xs font-semibold text-[#66756d]">
+          <label className="grid gap-1 text-xs font-semibold text-[#8b91b5]">
             Check out
             <input
               className={inputClassName()}
@@ -180,7 +181,7 @@ export default async function ReservationsPage() {
               type="date"
             />
           </label>
-          <label className="grid gap-1 text-xs font-semibold text-[#66756d]">
+          <label className="grid gap-1 text-xs font-semibold text-[#8b91b5]">
             Guests
             <input
               className={inputClassName()}
@@ -191,7 +192,7 @@ export default async function ReservationsPage() {
               type="number"
             />
           </label>
-          <label className="grid gap-1 text-xs font-semibold text-[#66756d]">
+          <label className="grid gap-1 text-xs font-semibold text-[#8b91b5]">
             Amount
             <input
               className={inputClassName()}
@@ -202,7 +203,7 @@ export default async function ReservationsPage() {
               type="number"
             />
           </label>
-          <label className="grid gap-1 text-xs font-semibold text-[#66756d]">
+          <label className="grid gap-1 text-xs font-semibold text-[#8b91b5]">
             Status
             <select className={inputClassName()} name="status">
               {statuses.map((status) => (
@@ -214,19 +215,19 @@ export default async function ReservationsPage() {
           </label>
           <input defaultValue="USD" name="currency" type="hidden" />
           <textarea
-            className="min-h-10 rounded-md border border-[#dfe4dc] bg-white px-3 py-2 text-sm text-[#16201b] outline-none focus:border-[#1f6f4a] lg:col-span-6"
+            className="min-h-10 rounded-xl border border-[#e7e9f6] bg-white px-3 py-2 text-sm text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20 lg:col-span-6"
             name="notes"
             placeholder="Notes"
           />
           <button
-            className="h-10 rounded-md bg-[#1f6f4a] px-4 text-sm font-semibold text-white shadow-sm hover:bg-[#18593b] disabled:cursor-not-allowed disabled:bg-[#9daf99]"
+            className="h-10 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9] disabled:cursor-not-allowed disabled:bg-[#b8edf2]"
             disabled={guests.length === 0 || properties.length === 0}
             type="submit"
           >
             Create
           </button>
           {guests.length === 0 || properties.length === 0 ? (
-            <p className="text-sm text-[#8a3d2c] lg:col-span-7">
+            <p className="text-sm text-[#df5473] lg:col-span-7">
               Add at least one guest and one property before creating reservations.
             </p>
           ) : null}

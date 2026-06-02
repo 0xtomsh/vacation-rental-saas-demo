@@ -35,18 +35,19 @@ const payments = [
 export default function PaymentsPage() {
   return (
     <AppShell
+      activeHref="/payments"
       actionLabel="Create invoice"
       eyebrow="Payments"
       title="Monitor payouts, invoices, and failed charges"
     >
       <StatsCards stats={stats} />
-      <section className="mt-6 rounded-lg border border-[#dfe4dc] bg-white shadow-sm">
-        <div className="border-b border-[#edf0ea] px-5 py-4">
-          <h3 className="font-semibold">Payment activity</h3>
+      <section className="mt-6 overflow-hidden rounded-2xl bg-white shadow-[0_18px_44px_rgba(111,93,184,0.08)] ring-1 ring-[#eef0fb]">
+        <div className="px-5 py-4">
+          <h3 className="font-semibold text-[#202238]">Payment activity</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px] border-collapse text-left text-sm">
-            <thead className="bg-[#f6f7f4] text-[#66756d]">
+            <thead className="bg-[#fafbff] text-[#8b91b5]">
               <tr>
                 <th className="px-5 py-3 font-medium">Guest</th>
                 <th className="px-5 py-3 font-medium">Property</th>
@@ -58,19 +59,19 @@ export default function PaymentsPage() {
             <tbody>
               {payments.map((payment) => (
                 <tr
-                  className="border-t border-[#edf0ea]"
+                  className="border-t border-[#f0f2fb]"
                   key={`${payment.guest}-${payment.property}`}
                 >
-                  <td className="px-5 py-4 font-medium">{payment.guest}</td>
-                  <td className="px-5 py-4 text-[#43534b]">
+                  <td className="px-5 py-4 font-semibold text-[#202238]">{payment.guest}</td>
+                  <td className="px-5 py-4 text-[#74799b]">
                     {payment.property}
                   </td>
-                  <td className="px-5 py-4 font-medium">{payment.amount}</td>
-                  <td className="px-5 py-4 text-[#43534b]">
+                  <td className="px-5 py-4 font-semibold text-[#202238]">{payment.amount}</td>
+                  <td className="px-5 py-4 text-[#74799b]">
                     {payment.method}
                   </td>
                   <td className="px-5 py-4">
-                    <span className="rounded-full bg-[#eef2ea] px-3 py-1 text-xs font-semibold text-[#43534b]">
+                    <span className="rounded-full bg-[#effbfd] px-3 py-1 text-xs font-semibold text-[#28bac6]">
                       {payment.status}
                     </span>
                   </td>

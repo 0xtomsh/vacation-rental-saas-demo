@@ -12,29 +12,29 @@ export function LoginForm() {
 
   return (
     <form action={action} className="mt-8 grid gap-5">
-      <div className="rounded-lg border border-[#dfe4dc] bg-[#fbfcf8] p-4 text-sm text-[#43534b]">
-        <p className="font-semibold text-[#16201b]">Demo login</p>
+      <div className="rounded-2xl bg-[#f7f8ff] p-4 text-sm text-[#74799b] ring-1 ring-[#eef0fb]">
+        <p className="font-semibold text-[#202238]">Demo login</p>
         <dl className="mt-3 grid gap-2">
           <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
             <dt className="font-medium">Email</dt>
-            <dd className="font-mono text-xs text-[#1d6544]">
+            <dd className="font-mono text-xs text-[#6d61d7]">
               {demoCredentials.email}
             </dd>
           </div>
           <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
             <dt className="font-medium">Password</dt>
-            <dd className="font-mono text-xs text-[#1d6544]">
+            <dd className="font-mono text-xs text-[#6d61d7]">
               {demoCredentials.password}
             </dd>
           </div>
         </dl>
       </div>
 
-      <label className="grid gap-2 text-sm font-semibold text-[#43534b]">
+      <label className="grid gap-2 text-sm font-semibold text-[#74799b]">
         Email
         <input
           autoComplete="email"
-          className="h-12 rounded-md border border-[#dfe4dc] bg-white px-3 text-base text-[#16201b] outline-none focus:border-[#1f6f4a]"
+          className="h-12 rounded-xl border border-[#e7e9f6] bg-white px-3 text-base text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20"
           defaultValue={demoCredentials.email}
           name="email"
           required
@@ -42,11 +42,11 @@ export function LoginForm() {
         />
       </label>
 
-      <label className="grid gap-2 text-sm font-semibold text-[#43534b]">
+      <label className="grid gap-2 text-sm font-semibold text-[#74799b]">
         Password
         <input
           autoComplete="current-password"
-          className="h-12 rounded-md border border-[#dfe4dc] bg-white px-3 text-base text-[#16201b] outline-none focus:border-[#1f6f4a]"
+          className="h-12 rounded-xl border border-[#e7e9f6] bg-white px-3 text-base text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20"
           defaultValue={demoCredentials.password}
           name="password"
           required
@@ -55,13 +55,13 @@ export function LoginForm() {
       </label>
 
       {state.message ? (
-        <p className="rounded-md border border-[#f0c9c0] bg-[#fff5f2] px-3 py-2 text-sm font-medium text-[#9b3520]">
+        <p className="rounded-xl border border-[#ffd5de] bg-[#fff6f8] px-3 py-2 text-sm font-medium text-[#df5473]">
           {state.message}
         </p>
       ) : null}
 
       <button
-        className="h-12 rounded-md bg-[#1f6f4a] px-4 text-sm font-semibold text-white shadow-sm hover:bg-[#18593b] disabled:cursor-not-allowed disabled:bg-[#9cb7a9]"
+        className="h-12 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9] disabled:cursor-not-allowed disabled:bg-[#b8edf2]"
         disabled={pending}
         type="submit"
       >

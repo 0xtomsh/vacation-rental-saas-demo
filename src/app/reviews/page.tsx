@@ -33,6 +33,7 @@ const reviews = [
 export default function ReviewsPage() {
   return (
     <AppShell
+      activeHref="/reviews"
       actionLabel="Draft replies"
       eyebrow="Reviews"
       title="Review guest feedback and prepare replies"
@@ -40,25 +41,25 @@ export default function ReviewsPage() {
       <StatsCards stats={stats} />
       <div className="mt-6 grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
         <AiReviewReply />
-        <section className="rounded-lg border border-[#dfe4dc] bg-white shadow-sm">
-          <div className="border-b border-[#edf0ea] px-5 py-4">
-            <h3 className="font-semibold">Recent guest reviews</h3>
+        <section className="overflow-hidden rounded-2xl bg-white shadow-[0_18px_44px_rgba(111,93,184,0.08)] ring-1 ring-[#eef0fb]">
+          <div className="px-5 py-4">
+            <h3 className="font-semibold text-[#202238]">Recent guest reviews</h3>
           </div>
-          <div className="divide-y divide-[#edf0ea]">
+          <div className="divide-y divide-[#f0f2fb]">
             {reviews.map((review) => (
               <article className="p-5" key={`${review.guest}-${review.property}`}>
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <h4 className="font-semibold">{review.guest}</h4>
-                    <p className="mt-1 text-sm text-[#66756d]">
+                    <h4 className="font-semibold text-[#202238]">{review.guest}</h4>
+                    <p className="mt-1 text-sm text-[#8b91b5]">
                       {review.property}
                     </p>
                   </div>
-                  <span className="rounded-full bg-[#dfeee7] px-3 py-1 text-sm font-semibold text-[#1d6544]">
+                  <span className="rounded-full bg-[#effbfd] px-3 py-1 text-sm font-semibold text-[#28bac6]">
                     {review.rating}
                   </span>
                 </div>
-                <p className="mt-4 text-sm leading-6 text-[#43534b]">
+                <p className="mt-4 text-sm leading-6 text-[#74799b]">
                   {review.note}
                 </p>
               </article>

@@ -50,14 +50,14 @@ function FieldLabel({
   htmlFor: string;
 }) {
   return (
-    <label className="grid gap-1 text-xs font-semibold text-[#66756d]" htmlFor={htmlFor}>
+    <label className="grid gap-1 text-xs font-semibold text-[#8b91b5]" htmlFor={htmlFor}>
       {children}
     </label>
   );
 }
 
 function inputClassName() {
-  return "h-10 rounded-md border border-[#dfe4dc] bg-white px-3 text-sm text-[#16201b] outline-none focus:border-[#1f6f4a]";
+  return "h-10 rounded-xl border border-[#e7e9f6] bg-white px-3 text-sm text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20";
 }
 
 export function ReservationsTable({
@@ -69,23 +69,23 @@ export function ReservationsTable({
   const canEdit = Boolean(actions && guests.length > 0 && properties.length > 0);
 
   return (
-    <section className="rounded-lg border border-[#dfe4dc] bg-white shadow-sm">
-      <div className="flex items-center justify-between border-b border-[#edf0ea] px-5 py-4">
-        <h3 className="font-semibold">Recent reservations</h3>
-        <a className="text-sm font-semibold text-[#1f6f4a]" href="#">
+    <section className="overflow-hidden rounded-2xl bg-white shadow-[0_18px_44px_rgba(111,93,184,0.08)] ring-1 ring-[#eef0fb]">
+      <div className="flex items-center justify-between px-5 py-4">
+        <h3 className="font-semibold text-[#202238]">Recent reservations</h3>
+        <a className="text-sm font-semibold text-[#6d61d7]" href="#">
           View all
         </a>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[640px] border-collapse text-left text-sm">
-          <thead className="bg-[#f6f7f4] text-[#66756d]">
+        <table className="w-full min-w-[600px] border-collapse text-left text-sm">
+          <thead className="bg-[#fafbff] text-[#8b91b5]">
             <tr>
-              <th className="px-5 py-3 font-medium">Guest</th>
-              <th className="px-5 py-3 font-medium">Property</th>
-              <th className="px-5 py-3 font-medium">Dates</th>
-              <th className="px-5 py-3 font-medium">Amount</th>
-              <th className="px-5 py-3 font-medium">Status</th>
-              {canEdit ? <th className="px-5 py-3 font-medium">Actions</th> : null}
+              <th className="px-4 py-3 font-medium">Guest</th>
+              <th className="px-4 py-3 font-medium">Property</th>
+              <th className="px-4 py-3 font-medium">Dates</th>
+              <th className="px-4 py-3 font-medium">Amount</th>
+              <th className="px-4 py-3 font-medium">Status</th>
+              {canEdit ? <th className="px-4 py-3 font-medium">Actions</th> : null}
             </tr>
           </thead>
           <tbody>
@@ -96,26 +96,26 @@ export function ReservationsTable({
               return (
               <Fragment key={rowKey}>
                 <tr
-                  className="border-t border-[#edf0ea]"
+                  className="border-t border-[#f0f2fb]"
                 >
-                  <td className="px-5 py-4 font-medium">{reservation.guest}</td>
-                  <td className="px-5 py-4 text-[#43534b]">
+                  <td className="px-4 py-4 font-semibold text-[#202238]">{reservation.guest}</td>
+                  <td className="px-4 py-4 text-[#74799b]">
                     {reservation.property}
                   </td>
-                  <td className="px-5 py-4 text-[#43534b]">
+                  <td className="px-4 py-4 text-[#74799b]">
                     {reservation.dates}
                   </td>
-                  <td className="px-5 py-4 font-medium">{reservation.amount}</td>
-                  <td className="px-5 py-4">
-                    <span className="rounded-full bg-[#eef2ea] px-3 py-1 text-xs font-semibold text-[#43534b]">
+                  <td className="px-4 py-4 font-semibold text-[#202238]">{reservation.amount}</td>
+                  <td className="px-4 py-4">
+                    <span className="whitespace-nowrap rounded-full bg-[#effbfd] px-3 py-1 text-xs font-semibold text-[#28bac6]">
                       {reservation.status}
                     </span>
                   </td>
                   {canEdit && reservation.id ? (
-                    <td className="px-5 py-4">
+                    <td className="px-4 py-4">
                       <form action={actions!.delete.bind(null, reservation.id)}>
                         <button
-                          className="h-9 rounded-md border border-[#d9c7c0] px-3 text-xs font-semibold text-[#8a3d2c] hover:bg-[#fff5f1]"
+                          className="h-9 rounded-full border border-[#ffd5de] bg-white px-3 text-xs font-semibold text-[#df5473] hover:bg-[#fff6f8]"
                           type="submit"
                         >
                           Delete
@@ -126,7 +126,7 @@ export function ReservationsTable({
                 </tr>
                 {canEdit && reservation.id ? (
                   <tr
-                    className="border-t border-[#edf0ea] bg-[#fbfcfa]"
+                    className="border-t border-[#f0f2fb] bg-[#fbfcff]"
                   >
                     <td className="px-5 py-4" colSpan={6}>
                       <form
@@ -231,13 +231,13 @@ export function ReservationsTable({
                           type="hidden"
                         />
                         <textarea
-                          className="min-h-10 rounded-md border border-[#dfe4dc] bg-white px-3 py-2 text-sm text-[#16201b] outline-none focus:border-[#1f6f4a] lg:col-span-7"
+                          className="min-h-10 rounded-xl border border-[#e7e9f6] bg-white px-3 py-2 text-sm text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20 lg:col-span-7"
                           defaultValue={reservation.notes ?? ""}
                           name="notes"
                           placeholder="Notes"
                         />
                         <button
-                          className="h-10 rounded-md bg-[#1f6f4a] px-4 text-sm font-semibold text-white shadow-sm hover:bg-[#18593b]"
+                          className="h-10 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9]"
                           type="submit"
                         >
                           Save
@@ -252,7 +252,7 @@ export function ReservationsTable({
           </tbody>
         </table>
         {reservations.length === 0 ? (
-          <div className="px-5 py-10 text-center text-sm text-[#66756d]">
+          <div className="px-5 py-10 text-center text-sm text-[#8b91b5]">
             No reservations yet.
           </div>
         ) : null}

@@ -57,6 +57,7 @@ const roadmap = [
 export default function DashboardPage() {
   return (
     <AppShell
+      activeHref="/dashboard"
       actionLabel="Add reservation"
       eyebrow="June 2026 operations"
       title="Manage bookings, revenue, and replies in one workspace"

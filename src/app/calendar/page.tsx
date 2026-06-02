@@ -32,6 +32,7 @@ const nextWeek = [
 export default function CalendarPage() {
   return (
     <AppShell
+      activeHref="/calendar"
       actionLabel="Block dates"
       eyebrow="Calendar"
       title="See occupancy and turnovers by week"

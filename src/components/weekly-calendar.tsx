@@ -11,20 +11,26 @@ type WeeklyCalendarProps = {
 
 export function WeeklyCalendar({ days, rangeLabel }: WeeklyCalendarProps) {
   return (
-    <section className="rounded-lg border border-[#dfe4dc] bg-white p-5 shadow-sm">
+    <section className="rounded-2xl bg-white p-5 shadow-[0_18px_44px_rgba(111,93,184,0.08)] ring-1 ring-[#eef0fb]">
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold">Weekly calendar</h3>
-        <span className="text-sm font-medium text-[#66756d]">{rangeLabel}</span>
+        <h3 className="font-semibold text-[#202238]">Weekly calendar</h3>
+        <span className="rounded-full bg-[#f4f6ff] px-3 py-1 text-xs font-semibold text-[#8177dc]">
+          {rangeLabel}
+        </span>
       </div>
       <div className="mt-4 grid grid-cols-7 gap-2">
-        {days.map((day) => (
+        {days.map((day, index) => (
           <div
-            className="min-h-24 rounded-md border border-[#edf0ea] bg-[#fbfcf8] p-2"
+            className={`min-h-24 rounded-xl p-2 ring-1 ${
+              index % 3 === 1
+                ? "bg-[#effbfd] ring-[#d8f7fb]"
+                : "bg-[#fafbff] ring-[#eef0fb]"
+            }`}
             key={day.date}
           >
-            <p className="text-xs font-medium text-[#66756d]">{day.day}</p>
-            <p className="mt-1 text-lg font-semibold">{day.date}</p>
-            <p className="mt-5 text-xs font-semibold text-[#1f6f4a]">
+            <p className="text-xs font-semibold text-[#8b91b5]">{day.day}</p>
+            <p className="mt-1 text-lg font-semibold text-[#202238]">{day.date}</p>
+            <p className="mt-5 rounded-full bg-white px-2 py-1 text-center text-xs font-semibold text-[#28bac6]">
               {day.occupancy}
             </p>
           </div>
