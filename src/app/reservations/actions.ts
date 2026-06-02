@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
+import { requireDemoUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 const reservationStatuses = [
@@ -106,6 +107,8 @@ function refreshReservationViews() {
 }
 
 export async function createReservation(formData: FormData) {
+  await requireDemoUser();
+
   await prisma.reservation.create({
     data: readReservationInput(formData),
   });
@@ -114,6 +117,8 @@ export async function createReservation(formData: FormData) {
 }
 
 export async function updateReservation(id: string, formData: FormData) {
+  await requireDemoUser();
+
   await prisma.reservation.update({
     where: { id },
     data: readReservationInput(formData),
@@ -123,6 +128,8 @@ export async function updateReservation(id: string, formData: FormData) {
 }
 
 export async function deleteReservation(id: string) {
+  await requireDemoUser();
+
   await prisma.reservation.delete({
     where: { id },
   });

@@ -1,3 +1,5 @@
+import { logout } from "@/app/login/actions";
+
 const navigationItems = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "Reservations", href: "/reservations" },
@@ -6,7 +8,11 @@ const navigationItems = [
   { label: "Payments", href: "/payments" },
 ];
 
-export function Sidebar() {
+type SidebarProps = {
+  userEmail?: string;
+};
+
+export function Sidebar({ userEmail }: SidebarProps) {
   return (
     <aside className="border-b border-[#dfe4dc] bg-[#fbfcf8] px-5 py-5 lg:border-b-0 lg:border-r">
       <div className="flex items-center justify-between lg:block">
@@ -30,6 +36,22 @@ export function Sidebar() {
           </a>
         ))}
       </nav>
+
+      {userEmail ? (
+        <div className="mt-6 border-t border-[#dfe4dc] pt-4">
+          <p className="truncate text-xs font-medium text-[#66756d]">
+            {userEmail}
+          </p>
+          <form action={logout} className="mt-3">
+            <button
+              className="h-9 w-full rounded-md border border-[#dfe4dc] bg-white px-3 text-sm font-semibold text-[#43534b] hover:bg-[#eef2ea] hover:text-[#16201b]"
+              type="submit"
+            >
+              Sign out
+            </button>
+          </form>
+        </div>
+      ) : null}
     </aside>
   );
 }
