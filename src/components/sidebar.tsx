@@ -1,10 +1,9 @@
 const navigationItems = [
-  "Dashboard",
-  "Reservations",
-  "Revenue",
-  "Calendar",
-  "AI Reviews",
-  "Payments",
+  { label: "Dashboard", href: "/dashboard" },
+  { label: "Reservations", href: "/reservations" },
+  { label: "Calendar", href: "/calendar" },
+  { label: "Reviews", href: "/reviews" },
+  { label: "Payments", href: "/payments" },
 ];
 
 export function Sidebar() {
@@ -24,10 +23,10 @@ export function Sidebar() {
         {navigationItems.map((item) => (
           <a
             className="rounded-md px-3 py-2 font-medium text-[#43534b] hover:bg-[#eef2ea] hover:text-[#16201b]"
-            href="#"
-            key={item}
+            href={item.href}
+            key={item.href}
           >
-            {item}
+            {item.label}
           </a>
         ))}
       </nav>
