@@ -33,6 +33,26 @@ type Customer = {
   phone: string | null;
 };
 
+type AmountLike = {
+  toString: () => string;
+};
+
+type DbProperty = {
+  id: string;
+  name: string;
+};
+
+type DbReservation = {
+  id: string;
+  guestId: string;
+  property: DbProperty;
+  checkInDate: Date;
+  checkOutDate: Date;
+  totalAmount: AmountLike;
+  currency: string;
+  status: string;
+};
+
 type ReservationHistoryItem = {
   id: string;
   guestId: string;
@@ -81,7 +101,7 @@ function formatDate(date: Date) {
   }).format(date);
 }
 
-function formatAmount(amount: { toString: () => string }, currency: string) {
+function formatAmount(amount: AmountLike, currency: string) {
   return new Intl.NumberFormat("en-US", {
     currency,
     style: "currency",
@@ -104,25 +124,26 @@ export default async function CustomersPage() {
     properties,
     managementSessionId,
     reservationSessionId,
-  ] = await Promise.all([
-    prisma.user.findMany({
-      orderBy: { name: "asc" },
-      select: { email: true, id: true, name: true, phone: true },
-      where: { role: "GUEST" },
-    }),
-    prisma.reservation.findMany({
-      include: {
-        property: { select: { id: true, name: true } },
-      },
-      orderBy: { checkInDate: "desc" },
-    }),
-    prisma.property.findMany({
-      orderBy: { name: "asc" },
-      select: { id: true, name: true },
-    }),
-    readDemoManagementSessionId(),
-    readDemoReservationSessionId(),
-  ]);
+  ]: [Customer[], DbReservation[], DbProperty[], string | null, string | null] =
+    await Promise.all([
+      prisma.user.findMany({
+        orderBy: { name: "asc" },
+        select: { email: true, id: true, name: true, phone: true },
+        where: { role: "GUEST" },
+      }),
+      prisma.reservation.findMany({
+        include: {
+          property: { select: { id: true, name: true } },
+        },
+        orderBy: { checkInDate: "desc" },
+      }),
+      prisma.property.findMany({
+        orderBy: { name: "asc" },
+        select: { id: true, name: true },
+      }),
+      readDemoManagementSessionId(),
+      readDemoReservationSessionId(),
+    ]);
 
   const managementState = getDemoManagementStateSnapshot(managementSessionId);
   const reservationState = getDemoReservationStateSnapshot(reservationSessionId);
