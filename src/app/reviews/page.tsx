@@ -1,6 +1,7 @@
 import { AiReviewReply } from "@/components/ai-review-reply";
 import { AppShell } from "@/components/app-shell";
 import { StatsCards } from "@/components/stats-cards";
+import { TechnologyStack } from "@/components/technology-stack";
 import { MessageSquareText, Reply, Sparkles, Star } from "lucide-react";
 
 const stats = [
@@ -38,6 +39,29 @@ const reviews = [
     property: "Hakone Mountain Lodge",
     rating: "4.9",
     note: "The view was amazing and the kitchen had everything we needed.",
+  },
+];
+
+const technologyStack = [
+  {
+    name: "React 19 useActionState",
+    role: "Keeps the review form, pending state, validation message, and generated draft in sync.",
+  },
+  {
+    name: "Next.js Server Actions",
+    role: "Runs the reply-generation action on the server when the demo form is submitted.",
+  },
+  {
+    name: "OpenAI API ready",
+    role: "This is the integration point for generating replies from guest review text with OpenAI.",
+  },
+  {
+    name: "Demo response mode",
+    role: "For this public demo, replies are currently generated from local demo responses instead of a live API call.",
+  },
+  {
+    name: "Client Component boundary",
+    role: "Limits browser JavaScript to the interactive AI reply composer.",
   },
 ];
 
@@ -80,6 +104,13 @@ export default function ReviewsPage() {
             ))}
           </div>
         </section>
+      </div>
+      <div className="mt-6">
+        <TechnologyStack
+          description="This page demonstrates an AI-assisted reply workflow: the composer submits review text through a server action that can call the OpenAI API, while this demo currently returns local sample replies."
+          items={technologyStack}
+          title="How this page works"
+        />
       </div>
     </AppShell>
   );

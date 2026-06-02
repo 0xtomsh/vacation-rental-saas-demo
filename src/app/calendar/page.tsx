@@ -1,5 +1,6 @@
 import { AppShell } from "@/components/app-shell";
 import { StatsCards } from "@/components/stats-cards";
+import { TechnologyStack } from "@/components/technology-stack";
 import { WeeklyCalendar } from "@/components/weekly-calendar";
 import { Ban, BedDouble, CalendarCheck, Moon } from "lucide-react";
 
@@ -30,6 +31,25 @@ const nextWeek = [
   { day: "Sun", date: "23", occupancy: "2/4" },
 ];
 
+const technologyStack = [
+  {
+    name: "Server-rendered page",
+    role: "Ships the calendar view as ready HTML, which keeps the schedule fast to open.",
+  },
+  {
+    name: "Reusable React components",
+    role: "Renders each week from the same typed calendar data structure.",
+  },
+  {
+    name: "Tailwind CSS 4",
+    role: "Builds the responsive seven-day grid, badges, spacing, and occupancy states.",
+  },
+  {
+    name: "TypeScript",
+    role: "Defines the day, date, and occupancy fields that each weekly calendar expects.",
+  },
+];
+
 export default function CalendarPage() {
   return (
     <AppShell
@@ -42,6 +62,13 @@ export default function CalendarPage() {
       <div className="mt-6 grid gap-6 xl:grid-cols-2">
         <WeeklyCalendar days={currentWeek} rangeLabel="6/10 - 6/16" />
         <WeeklyCalendar days={nextWeek} rangeLabel="6/17 - 6/23" />
+      </div>
+      <div className="mt-6">
+        <TechnologyStack
+          description="This page shows the visual layer of the demo: structured weekly data is turned into an occupancy calendar with reusable components and responsive styling."
+          items={technologyStack}
+          title="How this page works"
+        />
       </div>
     </AppShell>
   );

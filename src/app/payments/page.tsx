@@ -1,5 +1,6 @@
 import { AppShell } from "@/components/app-shell";
 import { StatsCards } from "@/components/stats-cards";
+import { TechnologyStack } from "@/components/technology-stack";
 import { Ban, CircleDollarSign, CreditCard, TrendingUp } from "lucide-react";
 
 const stats = [
@@ -40,6 +41,29 @@ const payments = [
     amount: "$748",
     method: "Bank transfer",
     status: "Processing",
+  },
+];
+
+const technologyStack = [
+  {
+    name: "Next.js App Router",
+    role: "Serves this payments workspace as a focused route inside the SaaS demo shell.",
+  },
+  {
+    name: "Typed payment data",
+    role: "Models guest, property, amount, method, and status values before they render in the table.",
+  },
+  {
+    name: "Stripe ready",
+    role: "This is the planned integration point for invoices, card payments, payment status updates, and payouts.",
+  },
+  {
+    name: "Demo payment mode",
+    role: "For this public demo, payment rows are local sample data instead of live Stripe transactions.",
+  },
+  {
+    name: "Responsive table UI",
+    role: "Keeps payment activity readable on smaller screens with horizontal scrolling.",
   },
 ];
 
@@ -95,6 +119,13 @@ export default function PaymentsPage() {
           </table>
         </div>
       </section>
+      <div className="mt-6">
+        <TechnologyStack
+          description="This page demonstrates the planned Stripe-backed payments surface: financial metrics and payment rows are modeled in code, while this demo currently uses local sample transactions."
+          items={technologyStack}
+          title="How this page works"
+        />
+      </div>
     </AppShell>
   );
 }

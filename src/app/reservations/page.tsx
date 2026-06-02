@@ -2,6 +2,7 @@ import { AppShell } from "@/components/app-shell";
 import type { Reservation } from "@/components/reservations-table";
 import { ReservationsTable } from "@/components/reservations-table";
 import { StatsCards } from "@/components/stats-cards";
+import { TechnologyStack } from "@/components/technology-stack";
 import { prisma } from "@/lib/prisma";
 import {
   CalendarCheck,
@@ -37,6 +38,25 @@ const statuses = [
   { value: "CANCELLED", label: "Cancelled" },
   { value: "COMPLETED", label: "Completed" },
   { value: "NO_SHOW", label: "No show" },
+];
+
+const technologyStack = [
+  {
+    name: "Next.js Server Components",
+    role: "Loads reservations, guests, and properties on the server before the page renders.",
+  },
+  {
+    name: "Prisma 7 + PostgreSQL",
+    role: "Stores the reservation records and joins them with guest and property data.",
+  },
+  {
+    name: "Next.js Server Actions",
+    role: "Handles create, update, and delete form submissions without a separate REST controller.",
+  },
+  {
+    name: "TypeScript",
+    role: "Keeps reservation rows, status values, and form payloads aligned across the UI.",
+  },
 ];
 
 function formatDate(date: Date) {
@@ -276,6 +296,13 @@ export default async function ReservationsPage() {
           properties={properties}
           reservations={reservations}
           title="All reservations"
+        />
+      </div>
+      <div className="mt-6">
+        <TechnologyStack
+          description="This page demonstrates a database-backed workflow: the table is rendered from server-side data, and each form submit mutates the same reservation records."
+          items={technologyStack}
+          title="How this page works"
         />
       </div>
     </AppShell>
