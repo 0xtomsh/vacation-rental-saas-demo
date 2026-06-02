@@ -1,12 +1,13 @@
 import { AppShell } from "@/components/app-shell";
 import { StatsCards } from "@/components/stats-cards";
 import { WeeklyCalendar } from "@/components/weekly-calendar";
+import { Ban, BedDouble, CalendarCheck, Moon } from "lucide-react";
 
 const stats = [
-  { label: "Occupancy", value: "82%", delta: "+5.1%" },
-  { label: "Turnovers", value: "14", delta: "This week" },
-  { label: "Blocked nights", value: "9", delta: "Maintenance" },
-  { label: "Avg. stay", value: "3.4", delta: "nights" },
+  { label: "Occupancy", value: "82%", delta: "+5.1%", icon: BedDouble },
+  { label: "Turnovers", value: "14", delta: "This week", icon: CalendarCheck },
+  { label: "Blocked nights", value: "9", delta: "Maintenance", icon: Ban },
+  { label: "Avg. stay", value: "3.4", delta: "nights", icon: Moon },
 ];
 
 const currentWeek = [

@@ -4,12 +4,28 @@ import { DevelopmentRoadmap } from "@/components/development-roadmap";
 import { ReservationsTable } from "@/components/reservations-table";
 import { StatsCards } from "@/components/stats-cards";
 import { WeeklyCalendar } from "@/components/weekly-calendar";
+import {
+  BedDouble,
+  CalendarCheck,
+  CircleDollarSign,
+  MessageSquareText,
+} from "lucide-react";
 
 const stats = [
-  { label: "Monthly revenue", value: "$12,840", delta: "+12.4%" },
-  { label: "Reservations", value: "48", delta: "+8" },
-  { label: "Occupancy rate", value: "82%", delta: "+5.1%" },
-  { label: "Pending reviews", value: "6", delta: "AI drafts ready" },
+  {
+    label: "Monthly revenue",
+    value: "$12,840",
+    delta: "+12.4%",
+    icon: CircleDollarSign,
+  },
+  { label: "Reservations", value: "48", delta: "+8", icon: CalendarCheck },
+  { label: "Occupancy rate", value: "82%", delta: "+5.1%", icon: BedDouble },
+  {
+    label: "Pending reviews",
+    value: "6",
+    delta: "AI drafts ready",
+    icon: MessageSquareText,
+  },
 ];
 
 const reservations = [

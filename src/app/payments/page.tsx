@@ -1,12 +1,22 @@
 import { AppShell } from "@/components/app-shell";
 import { StatsCards } from "@/components/stats-cards";
-import { CreditCard } from "lucide-react";
+import { Ban, CircleDollarSign, CreditCard, TrendingUp } from "lucide-react";
 
 const stats = [
-  { label: "Gross volume", value: "$12,840", delta: "+12.4%" },
-  { label: "Payout pending", value: "$3,280", delta: "Next batch" },
-  { label: "Failed payments", value: "2", delta: "Needs action" },
-  { label: "Refunds", value: "$420", delta: "-3.2%" },
+  {
+    label: "Gross volume",
+    value: "$12,840",
+    delta: "+12.4%",
+    icon: CircleDollarSign,
+  },
+  {
+    label: "Payout pending",
+    value: "$3,280",
+    delta: "Next batch",
+    icon: CreditCard,
+  },
+  { label: "Failed payments", value: "2", delta: "Needs action", icon: Ban },
+  { label: "Refunds", value: "$420", delta: "-3.2%", icon: TrendingUp },
 ];
 
 const payments = [

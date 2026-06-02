@@ -1,24 +1,10 @@
-import {
-  Ban,
-  BedDouble,
-  CalendarCheck,
-  CheckCircle2,
-  CircleDollarSign,
-  Clock,
-  CreditCard,
-  MessageSquareText,
-  Moon,
-  Reply,
-  Sparkles,
-  Star,
-  TrendingUp,
-  type LucideIcon,
-} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 export type Stat = {
   label: string;
   value: string;
   delta: string;
+  icon: LucideIcon;
 };
 
 type StatsCardsProps = {
@@ -32,65 +18,11 @@ const cardStyles = [
   "from-[#ffc374] to-[#ffd59d] text-white shadow-[0_18px_34px_rgba(255,195,116,0.24)]",
 ];
 
-function getStatIcon(label: string): LucideIcon {
-  const normalizedLabel = label.toLowerCase();
-
-  if (normalizedLabel.includes("revenue") || normalizedLabel.includes("gross")) {
-    return CircleDollarSign;
-  }
-
-  if (normalizedLabel.includes("payout") || normalizedLabel.includes("payment")) {
-    return CreditCard;
-  }
-
-  if (normalizedLabel.includes("reservation")) {
-    return CalendarCheck;
-  }
-
-  if (normalizedLabel.includes("confirmed")) {
-    return CheckCircle2;
-  }
-
-  if (normalizedLabel.includes("occupancy")) {
-    return BedDouble;
-  }
-
-  if (normalizedLabel.includes("review") || normalizedLabel.includes("reply")) {
-    return MessageSquareText;
-  }
-
-  if (normalizedLabel.includes("rating")) {
-    return Star;
-  }
-
-  if (normalizedLabel.includes("response")) {
-    return Reply;
-  }
-
-  if (normalizedLabel.includes("mention")) {
-    return Sparkles;
-  }
-
-  if (normalizedLabel.includes("request")) {
-    return Clock;
-  }
-
-  if (normalizedLabel.includes("blocked")) {
-    return Ban;
-  }
-
-  if (normalizedLabel.includes("night") || normalizedLabel.includes("stay")) {
-    return Moon;
-  }
-
-  return TrendingUp;
-}
-
 export function StatsCards({ stats }: StatsCardsProps) {
   return (
     <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {stats.map((stat, index) => {
-        const Icon = getStatIcon(stat.label);
+        const Icon = stat.icon;
 
         return (
           <article

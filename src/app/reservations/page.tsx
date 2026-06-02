@@ -3,7 +3,14 @@ import type { Reservation } from "@/components/reservations-table";
 import { ReservationsTable } from "@/components/reservations-table";
 import { StatsCards } from "@/components/stats-cards";
 import { prisma } from "@/lib/prisma";
-import { CalendarPlus, Plus } from "lucide-react";
+import {
+  CalendarCheck,
+  CalendarPlus,
+  CheckCircle2,
+  Clock,
+  Moon,
+  Plus,
+} from "lucide-react";
 
 import {
   createReservation,
@@ -112,10 +119,30 @@ export default async function ReservationsPage() {
   }, 0);
 
   const stats = [
-    { label: "Reservations", value: String(dbReservations.length), delta: "total" },
-    { label: "Confirmed", value: String(confirmed), delta: "ready" },
-    { label: "Open requests", value: String(openRequests), delta: "reviewing" },
-    { label: "Booked nights", value: String(bookedNights), delta: "current list" },
+    {
+      label: "Reservations",
+      value: String(dbReservations.length),
+      delta: "total",
+      icon: CalendarCheck,
+    },
+    {
+      label: "Confirmed",
+      value: String(confirmed),
+      delta: "ready",
+      icon: CheckCircle2,
+    },
+    {
+      label: "Open requests",
+      value: String(openRequests),
+      delta: "reviewing",
+      icon: Clock,
+    },
+    {
+      label: "Booked nights",
+      value: String(bookedNights),
+      delta: "current list",
+      icon: Moon,
+    },
   ];
 
   return (

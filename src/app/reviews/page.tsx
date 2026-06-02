@@ -1,13 +1,23 @@
 import { AiReviewReply } from "@/components/ai-review-reply";
 import { AppShell } from "@/components/app-shell";
 import { StatsCards } from "@/components/stats-cards";
-import { Star } from "lucide-react";
+import { MessageSquareText, Reply, Sparkles, Star } from "lucide-react";
 
 const stats = [
-  { label: "Average rating", value: "4.86", delta: "+0.08" },
-  { label: "Needs reply", value: "6", delta: "AI drafts ready" },
-  { label: "Response rate", value: "94%", delta: "+7%" },
-  { label: "Mentions cleanliness", value: "18", delta: "Top theme" },
+  { label: "Average rating", value: "4.86", delta: "+0.08", icon: Star },
+  {
+    label: "Needs reply",
+    value: "6",
+    delta: "AI drafts ready",
+    icon: MessageSquareText,
+  },
+  { label: "Response rate", value: "94%", delta: "+7%", icon: Reply },
+  {
+    label: "Mentions cleanliness",
+    value: "18",
+    delta: "Top theme",
+    icon: Sparkles,
+  },
 ];
 
 const reviews = [
