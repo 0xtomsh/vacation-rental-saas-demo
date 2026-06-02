@@ -63,7 +63,7 @@ function FieldLabel({
 }
 
 function inputClassName() {
-  return "h-10 rounded-xl border border-[#e7e9f6] bg-white px-3 text-sm text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20";
+  return "h-10 min-w-0 w-full rounded-xl border border-[#e7e9f6] bg-white px-3 text-sm text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20";
 }
 
 export function ReservationsTable({
@@ -142,7 +142,7 @@ export function ReservationsTable({
                     <td className="px-5 py-4" colSpan={6}>
                       <form
                         action={actions!.update.bind(null, reservation.id)}
-                        className="grid gap-3 lg:grid-cols-[1fr_1fr_140px_140px_100px_130px_120px_auto]"
+                        className="grid gap-3 md:grid-cols-2 xl:grid-cols-4"
                       >
                         <FieldLabel htmlFor={`${reservation.id}-guest`}>
                           Guest
@@ -242,13 +242,13 @@ export function ReservationsTable({
                           type="hidden"
                         />
                         <textarea
-                          className="min-h-10 rounded-xl border border-[#e7e9f6] bg-white px-3 py-2 text-sm text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20 lg:col-span-7"
+                          className="min-h-10 min-w-0 rounded-xl border border-[#e7e9f6] bg-white px-3 py-2 text-sm text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20 md:col-span-2 xl:col-span-3"
                           defaultValue={reservation.notes ?? ""}
                           name="notes"
                           placeholder="Notes"
                         />
                         <button
-                          className="flex h-10 items-center justify-center gap-2 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9]"
+                          className="flex h-10 min-w-0 items-center justify-center gap-2 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9]"
                           type="submit"
                         >
                           <Save aria-hidden="true" size={16} strokeWidth={2.2} />

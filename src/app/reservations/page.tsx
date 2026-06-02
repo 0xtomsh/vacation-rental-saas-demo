@@ -51,7 +51,7 @@ function formatAmount(amount: { toString: () => string }, currency: string) {
 }
 
 function inputClassName() {
-  return "h-10 rounded-xl border border-[#e7e9f6] bg-white px-3 text-sm text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20";
+  return "h-10 min-w-0 w-full rounded-xl border border-[#e7e9f6] bg-white px-3 text-sm text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20";
 }
 
 export default async function ReservationsPage() {
@@ -134,7 +134,7 @@ export default async function ReservationsPage() {
         </div>
         <form
           action={createReservation}
-          className="grid gap-4 px-5 py-5 lg:grid-cols-[1fr_1fr_150px_150px_110px_140px_130px]"
+          className="grid gap-4 px-5 py-5 md:grid-cols-2 xl:grid-cols-4"
         >
           <label className="grid gap-1 text-xs font-semibold text-[#8b91b5]">
             Guest
@@ -219,12 +219,12 @@ export default async function ReservationsPage() {
           </label>
           <input defaultValue="USD" name="currency" type="hidden" />
           <textarea
-            className="min-h-10 rounded-xl border border-[#e7e9f6] bg-white px-3 py-2 text-sm text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20 lg:col-span-6"
+            className="min-h-10 min-w-0 rounded-xl border border-[#e7e9f6] bg-white px-3 py-2 text-sm text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20 md:col-span-2 xl:col-span-3"
             name="notes"
             placeholder="Notes"
           />
           <button
-            className="flex h-10 items-center justify-center gap-2 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9] disabled:cursor-not-allowed disabled:bg-[#b8edf2]"
+            className="flex h-10 min-w-0 items-center justify-center gap-2 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9] disabled:cursor-not-allowed disabled:bg-[#b8edf2]"
             disabled={guests.length === 0 || properties.length === 0}
             type="submit"
           >
@@ -232,7 +232,7 @@ export default async function ReservationsPage() {
             Create
           </button>
           {guests.length === 0 || properties.length === 0 ? (
-            <p className="text-sm text-[#df5473] lg:col-span-7">
+            <p className="text-sm text-[#df5473] md:col-span-2 xl:col-span-4">
               Add at least one guest and one property before creating reservations.
             </p>
           ) : null}
