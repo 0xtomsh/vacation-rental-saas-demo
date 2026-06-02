@@ -10,6 +10,15 @@ import {
 } from "@/lib/demo-reservation-session";
 import { prisma } from "@/lib/prisma";
 import {
+  guestOptionArgs,
+  propertyOptionArgs,
+  reservationListArgs,
+  type DecimalStringable,
+  type GuestOption,
+  type PropertyOption,
+  type ReservationListItem,
+} from "@/lib/prisma-types";
+import {
   CalendarCheck,
   CalendarPlus,
   CheckCircle2,
@@ -75,36 +84,12 @@ function formatDateInput(date: Date) {
   return date.toISOString().slice(0, 10);
 }
 
-type AmountLike = {
-  toString: () => string;
-};
-
-function formatAmount(amount: AmountLike, currency: string) {
+function formatAmount(amount: DecimalStringable, currency: string) {
   return new Intl.NumberFormat("en-US", {
     currency,
     style: "currency",
   }).format(Number(amount.toString()));
 }
-
-type ReservationOption = {
-  id: string;
-  name: string;
-};
-
-type DbReservation = {
-  id: string;
-  propertyId: string;
-  guestId: string;
-  checkInDate: Date;
-  checkOutDate: Date;
-  guestCount: number;
-  status: string;
-  totalAmount: AmountLike;
-  currency: string;
-  notes: string | null;
-  guest: ReservationOption;
-  property: ReservationOption;
-};
 
 type ReservationDisplaySource = {
   id: string;
@@ -116,7 +101,7 @@ type ReservationDisplaySource = {
   checkOutDate: Date;
   guestCount: number;
   status: string;
-  totalAmount: AmountLike;
+  totalAmount: DecimalStringable;
   currency: string;
   notes: string | null;
 };
@@ -127,27 +112,14 @@ function inputClassName() {
 
 export default async function ReservationsPage() {
   const [dbReservations, guests, properties, sessionId]: [
-    DbReservation[],
-    ReservationOption[],
-    ReservationOption[],
+    ReservationListItem[],
+    GuestOption[],
+    PropertyOption[],
     string | null,
   ] = await Promise.all([
-    prisma.reservation.findMany({
-      include: {
-        guest: { select: { id: true, name: true } },
-        property: { select: { id: true, name: true } },
-      },
-      orderBy: { checkInDate: "asc" },
-    }),
-    prisma.user.findMany({
-      orderBy: { name: "asc" },
-      select: { id: true, name: true },
-      where: { role: "GUEST" },
-    }),
-    prisma.property.findMany({
-      orderBy: { name: "asc" },
-      select: { id: true, name: true },
-    }),
+    prisma.reservation.findMany(reservationListArgs),
+    prisma.user.findMany(guestOptionArgs),
+    prisma.property.findMany(propertyOptionArgs),
     readDemoReservationSessionId(),
   ]);
   const demoReservationState = getDemoReservationStateSnapshot(sessionId);

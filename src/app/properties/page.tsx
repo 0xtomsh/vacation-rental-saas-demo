@@ -8,6 +8,12 @@ import {
 } from "@/lib/demo-management-session";
 import { prisma } from "@/lib/prisma";
 import {
+  ownerOptionArgs,
+  propertyListArgs,
+  type OwnerOption,
+  type PropertyListItem,
+} from "@/lib/prisma-types";
+import {
   BedDouble,
   Camera,
   CircleDollarSign,
@@ -45,40 +51,6 @@ type Property = {
   status: string;
   photoUrls: string[];
   reservations: number;
-};
-
-type DecimalLike = {
-  toString: () => string;
-};
-
-type DbProperty = {
-  id: string;
-  ownerId: string;
-  name: string;
-  slug: string;
-  description: string | null;
-  addressLine1: string;
-  addressLine2: string | null;
-  city: string;
-  state: string | null;
-  country: string;
-  postalCode: string | null;
-  timezone: string;
-  bedrooms: number;
-  bathrooms: DecimalLike;
-  maxGuests: number;
-  nightlyRate: DecimalLike;
-  cleaningFee: DecimalLike;
-  currency: string;
-  status: string;
-  _count: {
-    reservations: number;
-  };
-};
-
-type Owner = {
-  id: string;
-  name: string;
 };
 
 const propertyStatuses = [
@@ -181,21 +153,12 @@ function propertyLocation(property: Property) {
 
 export default async function PropertiesPage() {
   const [dbProperties, owners, managementSessionId]: [
-    DbProperty[],
-    Owner[],
+    PropertyListItem[],
+    OwnerOption[],
     string | null,
   ] = await Promise.all([
-    prisma.property.findMany({
-      include: {
-        _count: { select: { reservations: true } },
-      },
-      orderBy: { name: "asc" },
-    }),
-    prisma.user.findMany({
-      orderBy: { name: "asc" },
-      select: { id: true, name: true },
-      where: { role: { in: ["HOST", "ADMIN"] } },
-    }),
+    prisma.property.findMany(propertyListArgs),
+    prisma.user.findMany(ownerOptionArgs),
     readDemoManagementSessionId(),
   ]);
 

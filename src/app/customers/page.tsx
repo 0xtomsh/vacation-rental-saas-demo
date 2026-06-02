@@ -12,6 +12,15 @@ import {
 } from "@/lib/demo-reservation-session";
 import { prisma } from "@/lib/prisma";
 import {
+  customerListArgs,
+  customerReservationHistoryArgs,
+  propertyOptionArgs,
+  type CustomerListItem,
+  type CustomerReservationHistoryItem,
+  type DecimalStringable,
+  type PropertyOption,
+} from "@/lib/prisma-types";
+import {
   ClipboardList,
   Mail,
   Plus,
@@ -26,32 +35,7 @@ import { createCustomer, deleteCustomer, updateCustomer } from "./actions";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-type Customer = {
-  id: string;
-  email: string;
-  name: string;
-  phone: string | null;
-};
-
-type AmountLike = {
-  toString: () => string;
-};
-
-type DbProperty = {
-  id: string;
-  name: string;
-};
-
-type DbReservation = {
-  id: string;
-  guestId: string;
-  property: DbProperty;
-  checkInDate: Date;
-  checkOutDate: Date;
-  totalAmount: AmountLike;
-  currency: string;
-  status: string;
-};
+type Customer = CustomerListItem;
 
 type ReservationHistoryItem = {
   id: string;
@@ -101,7 +85,7 @@ function formatDate(date: Date) {
   }).format(date);
 }
 
-function formatAmount(amount: AmountLike, currency: string) {
+function formatAmount(amount: DecimalStringable, currency: string) {
   return new Intl.NumberFormat("en-US", {
     currency,
     style: "currency",
@@ -124,26 +108,19 @@ export default async function CustomersPage() {
     properties,
     managementSessionId,
     reservationSessionId,
-  ]: [Customer[], DbReservation[], DbProperty[], string | null, string | null] =
-    await Promise.all([
-      prisma.user.findMany({
-        orderBy: { name: "asc" },
-        select: { email: true, id: true, name: true, phone: true },
-        where: { role: "GUEST" },
-      }),
-      prisma.reservation.findMany({
-        include: {
-          property: { select: { id: true, name: true } },
-        },
-        orderBy: { checkInDate: "desc" },
-      }),
-      prisma.property.findMany({
-        orderBy: { name: "asc" },
-        select: { id: true, name: true },
-      }),
-      readDemoManagementSessionId(),
-      readDemoReservationSessionId(),
-    ]);
+  ]: [
+    Customer[],
+    CustomerReservationHistoryItem[],
+    PropertyOption[],
+    string | null,
+    string | null,
+  ] = await Promise.all([
+    prisma.user.findMany(customerListArgs),
+    prisma.reservation.findMany(customerReservationHistoryArgs),
+    prisma.property.findMany(propertyOptionArgs),
+    readDemoManagementSessionId(),
+    readDemoReservationSessionId(),
+  ]);
 
   const managementState = getDemoManagementStateSnapshot(managementSessionId);
   const reservationState = getDemoReservationStateSnapshot(reservationSessionId);
