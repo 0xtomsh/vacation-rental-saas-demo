@@ -75,12 +75,36 @@ function formatDateInput(date: Date) {
   return date.toISOString().slice(0, 10);
 }
 
-function formatAmount(amount: { toString: () => string }, currency: string) {
+type AmountLike = {
+  toString: () => string;
+};
+
+function formatAmount(amount: AmountLike, currency: string) {
   return new Intl.NumberFormat("en-US", {
     currency,
     style: "currency",
   }).format(Number(amount.toString()));
 }
+
+type ReservationOption = {
+  id: string;
+  name: string;
+};
+
+type DbReservation = {
+  id: string;
+  propertyId: string;
+  guestId: string;
+  checkInDate: Date;
+  checkOutDate: Date;
+  guestCount: number;
+  status: string;
+  totalAmount: AmountLike;
+  currency: string;
+  notes: string | null;
+  guest: ReservationOption;
+  property: ReservationOption;
+};
 
 type ReservationDisplaySource = {
   id: string;
@@ -92,7 +116,7 @@ type ReservationDisplaySource = {
   checkOutDate: Date;
   guestCount: number;
   status: string;
-  totalAmount: { toString: () => string };
+  totalAmount: AmountLike;
   currency: string;
   notes: string | null;
 };
@@ -102,7 +126,12 @@ function inputClassName() {
 }
 
 export default async function ReservationsPage() {
-  const [dbReservations, guests, properties, sessionId] = await Promise.all([
+  const [dbReservations, guests, properties, sessionId]: [
+    DbReservation[],
+    ReservationOption[],
+    ReservationOption[],
+    string | null,
+  ] = await Promise.all([
     prisma.reservation.findMany({
       include: {
         guest: { select: { id: true, name: true } },
