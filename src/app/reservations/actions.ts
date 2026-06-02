@@ -3,7 +3,12 @@
 import { revalidatePath } from "next/cache";
 
 import { requireDemoUser } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import {
+  deleteDemoReservationDraft,
+  type DemoReservationStatus,
+  getOrCreateDemoReservationSessionId,
+  upsertDemoReservationDraft,
+} from "@/lib/demo-reservation-session";
 
 const reservationStatuses = [
   "REVIEWING",
@@ -67,7 +72,7 @@ function readDate(formData: FormData, key: string) {
     throw new Error(`${key} must be a valid date.`);
   }
 
-  return date;
+  return value;
 }
 
 function readReservationStatus(formData: FormData) {
@@ -80,21 +85,25 @@ function readReservationStatus(formData: FormData) {
   return value as ReservationStatusValue;
 }
 
-function readReservationInput(formData: FormData) {
+function readReservationInput(id: string, formData: FormData) {
   const checkInDate = readDate(formData, "checkInDate");
   const checkOutDate = readDate(formData, "checkOutDate");
 
-  if (checkOutDate <= checkInDate) {
+  if (
+    new Date(`${checkOutDate}T00:00:00.000Z`) <=
+    new Date(`${checkInDate}T00:00:00.000Z`)
+  ) {
     throw new Error("checkOutDate must be after checkInDate.");
   }
 
   return {
+    id,
     propertyId: readString(formData, "propertyId"),
     guestId: readString(formData, "guestId"),
     checkInDate,
     checkOutDate,
     guestCount: readPositiveInteger(formData, "guestCount"),
-    status: readReservationStatus(formData),
+    status: readReservationStatus(formData) as DemoReservationStatus,
     totalAmount: readPositiveAmount(formData, "totalAmount"),
     currency: readString(formData, "currency").toUpperCase().slice(0, 3),
     notes: readOptionalString(formData, "notes"),
@@ -108,31 +117,30 @@ function refreshReservationViews() {
 
 export async function createReservation(formData: FormData) {
   await requireDemoUser();
+  const sessionId = await getOrCreateDemoReservationSessionId();
 
-  await prisma.reservation.create({
-    data: readReservationInput(formData),
-  });
+  upsertDemoReservationDraft(
+    sessionId,
+    readReservationInput(crypto.randomUUID(), formData),
+  );
 
   refreshReservationViews();
 }
 
 export async function updateReservation(id: string, formData: FormData) {
   await requireDemoUser();
+  const sessionId = await getOrCreateDemoReservationSessionId();
 
-  await prisma.reservation.update({
-    where: { id },
-    data: readReservationInput(formData),
-  });
+  upsertDemoReservationDraft(sessionId, readReservationInput(id, formData));
 
   refreshReservationViews();
 }
 
 export async function deleteReservation(id: string) {
   await requireDemoUser();
+  const sessionId = await getOrCreateDemoReservationSessionId();
 
-  await prisma.reservation.delete({
-    where: { id },
-  });
+  deleteDemoReservationDraft(sessionId, id);
 
   refreshReservationViews();
 }

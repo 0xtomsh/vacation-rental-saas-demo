@@ -3,6 +3,11 @@ import type { Reservation } from "@/components/reservations-table";
 import { ReservationsTable } from "@/components/reservations-table";
 import { StatsCards } from "@/components/stats-cards";
 import { TechnologyStack } from "@/components/technology-stack";
+import {
+  getDemoReservationStateSnapshot,
+  readDemoReservationSessionId,
+  type DemoReservationDraft,
+} from "@/lib/demo-reservation-session";
 import { prisma } from "@/lib/prisma";
 import {
   CalendarCheck,
@@ -47,11 +52,11 @@ const technologyStack = [
   },
   {
     name: "Prisma 7 + PostgreSQL",
-    role: "Stores the reservation records and joins them with guest and property data.",
+    role: "Provides read-only seed reservations, guests, and properties for the public demo.",
   },
   {
     name: "Next.js Server Actions",
-    role: "Handles create, update, and delete form submissions without a separate REST controller.",
+    role: "Handles create, update, and delete form submissions in a session-scoped memory store.",
   },
   {
     name: "TypeScript",
@@ -77,12 +82,27 @@ function formatAmount(amount: { toString: () => string }, currency: string) {
   }).format(Number(amount.toString()));
 }
 
+type ReservationDisplaySource = {
+  id: string;
+  guestName: string;
+  propertyName: string;
+  propertyId: string;
+  guestId: string;
+  checkInDate: Date;
+  checkOutDate: Date;
+  guestCount: number;
+  status: string;
+  totalAmount: { toString: () => string };
+  currency: string;
+  notes: string | null;
+};
+
 function inputClassName() {
   return "h-10 min-w-0 w-full rounded-xl border border-[#e7e9f6] bg-white px-3 text-sm text-[#202238] outline-none focus:border-[#52dce6] focus:ring-3 focus:ring-[#52dce6]/20";
 }
 
 export default async function ReservationsPage() {
-  const [dbReservations, guests, properties] = await Promise.all([
+  const [dbReservations, guests, properties, sessionId] = await Promise.all([
     prisma.reservation.findMany({
       include: {
         guest: { select: { id: true, name: true } },
@@ -99,13 +119,105 @@ export default async function ReservationsPage() {
       orderBy: { name: "asc" },
       select: { id: true, name: true },
     }),
+    readDemoReservationSessionId(),
   ]);
+  const demoReservationState = getDemoReservationStateSnapshot(sessionId);
+  const guestNamesById = new Map(guests.map((guest) => [guest.id, guest.name]));
+  const propertyNamesById = new Map(
+    properties.map((property) => [property.id, property.name]),
+  );
+
+  function draftToDisplaySource(
+    draft: DemoReservationDraft,
+  ): ReservationDisplaySource | null {
+    const guestName = guestNamesById.get(draft.guestId);
+    const propertyName = propertyNamesById.get(draft.propertyId);
+
+    if (!guestName || !propertyName) {
+      return null;
+    }
+
+    return {
+      id: draft.id,
+      guestName,
+      propertyName,
+      propertyId: draft.propertyId,
+      guestId: draft.guestId,
+      checkInDate: new Date(`${draft.checkInDate}T00:00:00.000Z`),
+      checkOutDate: new Date(`${draft.checkOutDate}T00:00:00.000Z`),
+      guestCount: draft.guestCount,
+      status: draft.status,
+      totalAmount: { toString: () => draft.totalAmount },
+      currency: draft.currency,
+      notes: draft.notes,
+    };
+  }
+
+  const deletedReservationIds = new Set(demoReservationState.deletedIds);
+  const draftReservationsById = new Map(
+    demoReservationState.reservations.map((reservation) => [
+      reservation.id,
+      reservation,
+    ]),
+  );
+  const dbReservationIds = new Set(
+    dbReservations.map((reservation) => reservation.id),
+  );
+  const displaySources: ReservationDisplaySource[] = dbReservations.flatMap(
+    (reservation) => {
+      if (deletedReservationIds.has(reservation.id)) {
+        return [];
+      }
+
+      const draft = draftReservationsById.get(reservation.id);
+
+      if (draft) {
+        const source = draftToDisplaySource(draft);
+
+        return source ? [source] : [];
+      }
+
+      return [
+        {
+          id: reservation.id,
+          guestName: reservation.guest.name,
+          propertyName: reservation.property.name,
+          propertyId: reservation.propertyId,
+          guestId: reservation.guestId,
+          checkInDate: reservation.checkInDate,
+          checkOutDate: reservation.checkOutDate,
+          guestCount: reservation.guestCount,
+          status: reservation.status,
+          totalAmount: reservation.totalAmount,
+          currency: reservation.currency,
+          notes: reservation.notes,
+        },
+      ];
+    },
+  );
+
+  for (const draft of demoReservationState.reservations) {
+    if (dbReservationIds.has(draft.id) || deletedReservationIds.has(draft.id)) {
+      continue;
+    }
+
+    const source = draftToDisplaySource(draft);
+
+    if (source) {
+      displaySources.push(source);
+    }
+  }
+
+  displaySources.sort(
+    (first, second) =>
+      first.checkInDate.getTime() - second.checkInDate.getTime(),
+  );
 
   const today = formatDateInput(new Date());
-  const reservations: Reservation[] = dbReservations.map((reservation) => ({
+  const reservations: Reservation[] = displaySources.map((reservation) => ({
     id: reservation.id,
-    guest: reservation.guest.name,
-    property: reservation.property.name,
+    guest: reservation.guestName,
+    property: reservation.propertyName,
     dates: `${formatDate(reservation.checkInDate)} - ${formatDate(
       reservation.checkOutDate,
     )}`,
@@ -124,13 +236,13 @@ export default async function ReservationsPage() {
     notes: reservation.notes,
   }));
 
-  const openRequests = dbReservations.filter(
+  const openRequests = displaySources.filter(
     (reservation) => reservation.status === "REVIEWING",
   ).length;
-  const confirmed = dbReservations.filter(
+  const confirmed = displaySources.filter(
     (reservation) => reservation.status === "CONFIRMED",
   ).length;
-  const bookedNights = dbReservations.reduce((total, reservation) => {
+  const bookedNights = displaySources.reduce((total, reservation) => {
     const nights =
       (reservation.checkOutDate.getTime() - reservation.checkInDate.getTime()) /
       86_400_000;
@@ -141,8 +253,8 @@ export default async function ReservationsPage() {
   const stats = [
     {
       label: "Reservations",
-      value: String(dbReservations.length),
-      delta: "total",
+      value: String(displaySources.length),
+      delta: "session view",
       icon: CalendarCheck,
     },
     {
@@ -300,7 +412,7 @@ export default async function ReservationsPage() {
       </div>
       <div className="mt-6">
         <TechnologyStack
-          description="This page demonstrates a database-backed workflow: the table is rendered from server-side data, and each form submit mutates the same reservation records."
+          description="This page demonstrates a public-demo workflow: the table starts from read-only database records, and each form submit applies temporary changes only to this browser session."
           items={technologyStack}
           title="How this page works"
         />
