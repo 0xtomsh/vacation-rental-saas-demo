@@ -275,6 +275,7 @@ export default async function ReservationsPage() {
           guests={guests}
           properties={properties}
           reservations={reservations}
+          title="All reservations"
         />
       </div>
     </AppShell>

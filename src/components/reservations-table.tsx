@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import Link from "next/link";
 import {
   ArrowRight,
   ClipboardList,
@@ -32,6 +33,8 @@ type ReservationOption = {
 type ReservationsTableProps = {
   reservations: Reservation[];
   guests?: ReservationOption[];
+  title?: string;
+  viewAllHref?: string;
   properties?: ReservationOption[];
   actions?: {
     update: (id: string, formData: FormData) => Promise<void>;
@@ -71,6 +74,8 @@ export function ReservationsTable({
   guests = [],
   properties = [],
   reservations,
+  title = "Recent reservations",
+  viewAllHref,
 }: ReservationsTableProps) {
   const canEdit = Boolean(actions && guests.length > 0 && properties.length > 0);
 
@@ -79,12 +84,17 @@ export function ReservationsTable({
       <div className="flex items-center justify-between px-5 py-4">
         <h3 className="flex items-center gap-2 font-semibold text-[#202238]">
           <ClipboardList aria-hidden="true" size={18} strokeWidth={2.2} />
-          Recent reservations
+          {title}
         </h3>
-        <a className="flex items-center gap-1.5 text-sm font-semibold text-[#6d61d7]" href="#">
-          View all
-          <ArrowRight aria-hidden="true" size={15} strokeWidth={2.2} />
-        </a>
+        {viewAllHref ? (
+          <Link
+            className="flex items-center gap-1.5 text-sm font-semibold text-[#6d61d7]"
+            href={viewAllHref}
+          >
+            View all
+            <ArrowRight aria-hidden="true" size={15} strokeWidth={2.2} />
+          </Link>
+        ) : null}
       </div>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[600px] border-collapse text-left text-sm">

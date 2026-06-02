@@ -120,7 +120,7 @@ export default function DashboardPage() {
       <StatsCards stats={stats} />
 
       <div className="mt-6 grid gap-6 xl:grid-cols-[1.4fr_0.9fr]">
-        <ReservationsTable reservations={reservations} />
+        <ReservationsTable reservations={reservations} viewAllHref="/reservations" />
         <WeeklyCalendar days={calendarDays} rangeLabel="6/10 - 6/16" />
       </div>
 
