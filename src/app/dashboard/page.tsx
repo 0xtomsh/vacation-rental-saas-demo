@@ -121,7 +121,11 @@ export default function DashboardPage() {
 
       <div className="mt-6 grid gap-6 xl:grid-cols-[1.4fr_0.9fr]">
         <ReservationsTable reservations={reservations} viewAllHref="/reservations" />
-        <WeeklyCalendar days={calendarDays} rangeLabel="6/10 - 6/16" />
+        <WeeklyCalendar
+          days={calendarDays}
+          rangeLabel="6/10 - 6/16"
+          viewAllHref="/calendar"
+        />
       </div>
 
       <div className="mt-6 grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">

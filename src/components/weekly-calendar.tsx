@@ -1,4 +1,5 @@
-import { BedDouble, CalendarDays } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, BedDouble, CalendarDays } from "lucide-react";
 
 export type CalendarDay = {
   day: string;
@@ -9,20 +10,36 @@ export type CalendarDay = {
 type WeeklyCalendarProps = {
   days: CalendarDay[];
   rangeLabel: string;
+  viewAllHref?: string;
 };
 
-export function WeeklyCalendar({ days, rangeLabel }: WeeklyCalendarProps) {
+export function WeeklyCalendar({
+  days,
+  rangeLabel,
+  viewAllHref,
+}: WeeklyCalendarProps) {
   return (
     <section className="rounded-2xl bg-white p-5 shadow-[0_18px_44px_rgba(111,93,184,0.08)] ring-1 ring-[#eef0fb]">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h3 className="flex items-center gap-2 font-semibold text-[#202238]">
           <CalendarDays aria-hidden="true" size={18} strokeWidth={2.2} />
           Weekly calendar
         </h3>
-        <span className="flex items-center gap-1.5 rounded-full bg-[#f4f6ff] px-3 py-1 text-xs font-semibold text-[#8177dc]">
-          <CalendarDays aria-hidden="true" size={14} strokeWidth={2.2} />
-          {rangeLabel}
-        </span>
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="flex items-center gap-1.5 rounded-full bg-[#f4f6ff] px-3 py-1 text-xs font-semibold text-[#8177dc]">
+            <CalendarDays aria-hidden="true" size={14} strokeWidth={2.2} />
+            {rangeLabel}
+          </span>
+          {viewAllHref ? (
+            <Link
+              className="flex items-center gap-1.5 text-sm font-semibold text-[#6d61d7]"
+              href={viewAllHref}
+            >
+              View all
+              <ArrowRight aria-hidden="true" size={15} strokeWidth={2.2} />
+            </Link>
+          ) : null}
+        </div>
       </div>
       <div className="mt-4 grid grid-cols-7 gap-2">
         {days.map((day, index) => (
