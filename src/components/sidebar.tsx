@@ -1,4 +1,5 @@
 import { logout } from "@/app/login/actions";
+import { SubmitButton } from "@/components/submit-button";
 import {
   Building2,
   CalendarDays,
@@ -88,13 +89,13 @@ export function Sidebar({ activeHref, userEmail }: SidebarProps) {
             {userEmail}
           </p>
           <form action={logout} className="mt-3">
-            <button
-              className="flex h-9 w-full items-center justify-center gap-2 rounded-full bg-white px-3 text-sm font-semibold text-[#8177dc] shadow-sm ring-1 ring-[#eceeff] hover:bg-[#fbfbff]"
-              type="submit"
+            <SubmitButton
+              className="flex h-9 w-full items-center justify-center gap-2 rounded-full bg-white px-3 text-sm font-semibold text-[#8177dc] shadow-sm ring-1 ring-[#eceeff] hover:bg-[#fbfbff] disabled:cursor-not-allowed disabled:opacity-70"
+              pendingLabel="Signing out..."
             >
               <LogOut aria-hidden="true" size={16} strokeWidth={2.2} />
               Sign out
-            </button>
+            </SubmitButton>
           </form>
         </div>
       ) : null}

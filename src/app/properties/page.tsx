@@ -1,5 +1,6 @@
 import { AppShell } from "@/components/app-shell";
 import { StatsCards } from "@/components/stats-cards";
+import { SubmitButton } from "@/components/submit-button";
 import { TechnologyStack } from "@/components/technology-stack";
 import {
   getDemoManagementStateSnapshot,
@@ -390,14 +391,14 @@ export default async function PropertiesPage() {
             name="photoUrls"
             placeholder="Photo URLs, one per line"
           />
-          <button
+          <SubmitButton
             className="flex h-10 min-w-0 items-center justify-center gap-2 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9] disabled:cursor-not-allowed disabled:bg-[#b8edf2]"
             disabled={!defaultOwnerId}
-            type="submit"
+            pendingLabel="Creating..."
           >
             <Plus aria-hidden="true" size={16} strokeWidth={2.2} />
             Create
-          </button>
+          </SubmitButton>
           {!defaultOwnerId ? (
             <p className="text-sm text-[#df5473] md:col-span-2 xl:col-span-4">
               Add a host user before creating facilities.
@@ -634,23 +635,23 @@ export default async function PropertiesPage() {
                   {propertyLocation(property)}
                 </div>
                 <div className="flex flex-wrap gap-2 md:col-span-2">
-                  <button
-                    className="flex h-10 min-w-0 items-center justify-center gap-2 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9]"
-                    type="submit"
+                  <SubmitButton
+                    className="flex h-10 min-w-0 items-center justify-center gap-2 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9] disabled:cursor-not-allowed disabled:bg-[#b8edf2]"
+                    pendingLabel="Saving..."
                   >
                     <Save aria-hidden="true" size={16} strokeWidth={2.2} />
                     Save
-                  </button>
+                  </SubmitButton>
                 </div>
               </form>
               <form action={deleteProperty.bind(null, property.id)} className="xl:col-start-2">
-                <button
-                  className="flex h-9 items-center justify-center gap-1.5 rounded-full border border-[#ffd5de] bg-white px-3 text-xs font-semibold text-[#df5473] hover:bg-[#fff6f8]"
-                  type="submit"
+                <SubmitButton
+                  className="flex h-9 items-center justify-center gap-1.5 rounded-full border border-[#ffd5de] bg-white px-3 text-xs font-semibold text-[#df5473] hover:bg-[#fff6f8] disabled:cursor-not-allowed disabled:opacity-70"
+                  pendingLabel="Deleting..."
                 >
                   <Trash2 aria-hidden="true" size={14} strokeWidth={2.2} />
                   Delete facility
-                </button>
+                </SubmitButton>
               </form>
             </div>
           </article>

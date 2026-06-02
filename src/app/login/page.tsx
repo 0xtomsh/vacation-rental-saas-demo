@@ -20,7 +20,7 @@ export default function LoginPage() {
           Sign in to the dashboard
         </h1>
         <p className="mt-3 text-sm leading-6 text-[#74799b]">
-          Use the shared public demo account to sign in.
+          Use the shared public demo account to sign in with Supabase Auth.
         </p>
         <LoginForm />
       </section>

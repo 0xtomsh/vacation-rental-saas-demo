@@ -1,5 +1,6 @@
 import { AppShell } from "@/components/app-shell";
 import { StatsCards } from "@/components/stats-cards";
+import { SubmitButton } from "@/components/submit-button";
 import { TechnologyStack } from "@/components/technology-stack";
 import {
   getDemoManagementStateSnapshot,
@@ -297,13 +298,13 @@ export default async function CustomersPage() {
             Phone
             <input className={inputClassName()} name="phone" type="tel" />
           </label>
-          <button
-            className="flex h-10 min-w-0 items-center justify-center gap-2 self-end rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9]"
-            type="submit"
+          <SubmitButton
+            className="flex h-10 min-w-0 items-center justify-center gap-2 self-end rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9] disabled:cursor-not-allowed disabled:bg-[#b8edf2]"
+            pendingLabel="Creating..."
           >
             <Plus aria-hidden="true" size={16} strokeWidth={2.2} />
             Create
-          </button>
+          </SubmitButton>
         </form>
       </section>
 
@@ -358,13 +359,13 @@ export default async function CustomersPage() {
                           name="phone"
                           type="tel"
                         />
-                        <button
-                          className="flex h-9 items-center justify-center gap-1.5 rounded-full bg-[#52dce6] px-3 text-xs font-semibold text-white hover:bg-[#45cfd9]"
-                          type="submit"
+                        <SubmitButton
+                          className="flex h-9 items-center justify-center gap-1.5 rounded-full bg-[#52dce6] px-3 text-xs font-semibold text-white hover:bg-[#45cfd9] disabled:cursor-not-allowed disabled:bg-[#b8edf2]"
+                          pendingLabel="Saving..."
                         >
                           <Save aria-hidden="true" size={14} strokeWidth={2.2} />
                           Save
-                        </button>
+                        </SubmitButton>
                       </form>
                     </td>
                     <td className="px-5 py-4 align-top text-[#74799b]">
@@ -403,13 +404,13 @@ export default async function CustomersPage() {
                     </td>
                     <td className="px-5 py-4 align-top">
                       <form action={deleteCustomer.bind(null, customer.id)}>
-                        <button
-                          className="flex h-9 items-center justify-center gap-1.5 rounded-full border border-[#ffd5de] bg-white px-3 text-xs font-semibold text-[#df5473] hover:bg-[#fff6f8]"
-                          type="submit"
+                        <SubmitButton
+                          className="flex h-9 items-center justify-center gap-1.5 rounded-full border border-[#ffd5de] bg-white px-3 text-xs font-semibold text-[#df5473] hover:bg-[#fff6f8] disabled:cursor-not-allowed disabled:opacity-70"
+                          pendingLabel="Deleting..."
                         >
                           <Trash2 aria-hidden="true" size={14} strokeWidth={2.2} />
                           Delete
-                        </button>
+                        </SubmitButton>
                       </form>
                     </td>
                   </tr>

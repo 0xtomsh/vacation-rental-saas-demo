@@ -7,6 +7,8 @@ import {
   Trash2,
 } from "lucide-react";
 
+import { SubmitButton } from "@/components/submit-button";
+
 export type Reservation = {
   id?: string;
   guest: string;
@@ -134,13 +136,13 @@ export function ReservationsTable({
                   {canEdit && reservation.id ? (
                     <td className="px-4 py-4">
                       <form action={actions!.delete.bind(null, reservation.id)}>
-                        <button
-                          className="flex h-9 items-center justify-center gap-1.5 rounded-full border border-[#ffd5de] bg-white px-3 text-xs font-semibold text-[#df5473] hover:bg-[#fff6f8]"
-                          type="submit"
+                        <SubmitButton
+                          className="flex h-9 items-center justify-center gap-1.5 rounded-full border border-[#ffd5de] bg-white px-3 text-xs font-semibold text-[#df5473] hover:bg-[#fff6f8] disabled:cursor-not-allowed disabled:opacity-70"
+                          pendingLabel="Deleting..."
                         >
                           <Trash2 aria-hidden="true" size={14} strokeWidth={2.2} />
                           Delete
-                        </button>
+                        </SubmitButton>
                       </form>
                     </td>
                   ) : null}
@@ -257,13 +259,13 @@ export function ReservationsTable({
                           name="notes"
                           placeholder="Notes"
                         />
-                        <button
-                          className="flex h-10 min-w-0 items-center justify-center gap-2 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9]"
-                          type="submit"
+                        <SubmitButton
+                          className="flex h-10 min-w-0 items-center justify-center gap-2 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9] disabled:cursor-not-allowed disabled:bg-[#b8edf2]"
+                          pendingLabel="Saving..."
                         >
                           <Save aria-hidden="true" size={16} strokeWidth={2.2} />
                           Save
-                        </button>
+                        </SubmitButton>
                       </form>
                     </td>
                   </tr>

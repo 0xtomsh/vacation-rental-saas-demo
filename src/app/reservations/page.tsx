@@ -2,6 +2,7 @@ import { AppShell } from "@/components/app-shell";
 import type { Reservation } from "@/components/reservations-table";
 import { ReservationsTable } from "@/components/reservations-table";
 import { StatsCards } from "@/components/stats-cards";
+import { SubmitButton } from "@/components/submit-button";
 import { TechnologyStack } from "@/components/technology-stack";
 import {
   getDemoReservationStateSnapshot,
@@ -383,14 +384,14 @@ export default async function ReservationsPage() {
             name="notes"
             placeholder="Notes"
           />
-          <button
+          <SubmitButton
             className="flex h-10 min-w-0 items-center justify-center gap-2 rounded-full bg-[#52dce6] px-4 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(82,220,230,0.28)] hover:bg-[#45cfd9] disabled:cursor-not-allowed disabled:bg-[#b8edf2]"
             disabled={guests.length === 0 || properties.length === 0}
-            type="submit"
+            pendingLabel="Creating..."
           >
             <Plus aria-hidden="true" size={16} strokeWidth={2.2} />
             Create
-          </button>
+          </SubmitButton>
           {guests.length === 0 || properties.length === 0 ? (
             <p className="text-sm text-[#df5473] md:col-span-2 xl:col-span-4">
               Add at least one guest and one property before creating reservations.
