@@ -9,7 +9,7 @@ import {
 
 type AppShellProps = {
   activeHref: string;
-  eyebrow: string;
+  eyebrow: React.ReactNode;
   title: string;
   actionLabel?: string;
   children: React.ReactNode;
