@@ -1,11 +1,13 @@
 import { logout } from "@/app/login/actions";
 import {
+  Building2,
   CalendarDays,
   CreditCard,
   Gauge,
   LogOut,
   MessageSquareText,
   ClipboardList,
+  Users,
   type LucideIcon,
 } from "lucide-react";
 
@@ -16,6 +18,8 @@ const navigationItems: Array<{
 }> = [
   { label: "Dashboard", href: "/dashboard", icon: Gauge },
   { label: "Reservations", href: "/reservations", icon: ClipboardList },
+  { label: "Customers", href: "/customers", icon: Users },
+  { label: "Facilities", href: "/properties", icon: Building2 },
   { label: "Calendar", href: "/calendar", icon: CalendarDays },
   { label: "Reviews", href: "/reviews", icon: MessageSquareText },
   { label: "Payments", href: "/payments", icon: CreditCard },
