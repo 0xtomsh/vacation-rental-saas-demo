@@ -47,6 +47,40 @@ type Property = {
   reservations: number;
 };
 
+type DecimalLike = {
+  toString: () => string;
+};
+
+type DbProperty = {
+  id: string;
+  ownerId: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  addressLine1: string;
+  addressLine2: string | null;
+  city: string;
+  state: string | null;
+  country: string;
+  postalCode: string | null;
+  timezone: string;
+  bedrooms: number;
+  bathrooms: DecimalLike;
+  maxGuests: number;
+  nightlyRate: DecimalLike;
+  cleaningFee: DecimalLike;
+  currency: string;
+  status: string;
+  _count: {
+    reservations: number;
+  };
+};
+
+type Owner = {
+  id: string;
+  name: string;
+};
+
 const propertyStatuses = [
   { value: "DRAFT", label: "Draft" },
   { value: "ACTIVE", label: "Active" },
@@ -146,7 +180,11 @@ function propertyLocation(property: Property) {
 }
 
 export default async function PropertiesPage() {
-  const [dbProperties, owners, managementSessionId] = await Promise.all([
+  const [dbProperties, owners, managementSessionId]: [
+    DbProperty[],
+    Owner[],
+    string | null,
+  ] = await Promise.all([
     prisma.property.findMany({
       include: {
         _count: { select: { reservations: true } },
